@@ -1,4 +1,4 @@
-<main class="main">	
+<section class="main">	
    <div class="main__statuses">
       <div class="main__status">
          <img draggable=false src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5Unu6nHYatqAloTpYHZ9lEJkLW8xj-nzQxZ7hvOcOEUosivjh_IfBOZz80AwgcZpHTU&usqp=CAU" alt="">
@@ -71,4 +71,5 @@
    </div>
    <div class="left"><i class="fa-solid fa-arrow-left"></i></div>
    <div class="right"><i class="fa-solid fa-arrow-right"></i></div>
-</main>
+</section>
+

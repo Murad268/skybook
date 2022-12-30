@@ -53,7 +53,8 @@ body {
 
 /* header */
 .navbar {
-   padding: 10px 0;
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+   padding: 10px;
 }
 .navbar__logo {
    width: 250px;
@@ -134,6 +135,7 @@ body {
 }
 .mainMenu {
    display: grid;
+   column-gap: 15px;
    grid-template-columns: 1fr 2fr 1fr;
 }
 
@@ -151,8 +153,8 @@ body {
    border-radius: 20px;
 }
 .main__status {
-   width: 150px;
-   height: 200px;
+   width: 130px;
+   height: 220px;
    position: relative;
    border-radius: 20px;
    margin-right: 15px;
@@ -198,6 +200,7 @@ body {
 
 .main {
    margin-top: 20px;
+   height: max-content;
 }
 
 img {
@@ -245,4 +248,168 @@ img {
    top: 50%;
    transform: translateY(-50%);
    right: 0;
+}
+
+
+/* asideleft */
+.asideLeft__user {
+   margin-top: 20px;
+   background: #0F0F0F;
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.asideLeft__user {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 15px;
+   border-radius: 10px;
+
+}
+
+.asideLeft__user__icon {
+   width: 30px;
+   height: 30px;
+   border-radius: 100%;
+}
+
+.asideLeft__user__icon img {
+   width: 100%;
+   height: 100%;
+   object-fit: fill;
+   border-radius: 100%;
+}
+
+.asideLeft__user__messaggess {
+   padding-bottom: 10px;
+   background: #0F0F0F;
+   margin-top: 20px;
+   border-radius: 10px;
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.asideLeft__user__messaggess__top {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 15px 35px;
+}
+.asideLeft__user__messaggess__top__left{
+   color: white;
+   font-weight: bold;
+}
+.asideLeft__user__messaggess__top__right a {
+   text-decoration: none;
+   color: blue
+}
+
+.asideLeft__user__messaggess__body__messagge {
+   padding: 0 35px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 10px;
+}
+
+.asideLeft__user__messaggess__body__messagge__icon {
+   width: 40px;
+   height: 40px;
+   border-radius: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.asideLeft__user__messaggess__body__messagge__icon img {
+   width: 80%;
+   height: 80%;
+   object-fit: fill;
+   border-radius: 100%;
+}
+
+.asideLeft__user__messaggess__body__messagge__name {
+   color: white;
+}
+
+.asideLeft__user__name {
+   color: white;
+}
+
+/* asideright */
+
+
+
+.asideRight__top {
+   padding: 15px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 20px;
+   background: #0F0F0F;
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.asideRight__top__left {
+   color: wheat;
+   font-weight: bold;
+}
+.fa-golang {
+   color: red;
+   font-size: 30px;
+}
+.elanlar {
+   padding: 15px;
+   margin-top: 20px;
+   background: #0F0F0F;
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.elan {
+   margin-top: 22px;
+   padding: 10px;
+   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+   
+}
+.elan__image {
+   width: 30px;
+   height: 30px;
+}
+.elan__image img {
+   width: 100%;
+   height: 100%;
+   object-fit: fill;
+}
+
+.elan__top {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.elan__title{
+   color: white;
+   font-weight: bold;
+   font-size: 15px;
+}
+
+.elan__src {
+   margin-top: 20px;
+   text-align: justify;
+   color: white
+}
+
+.elan__add {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   background: white;
+   height: 200px;
+   margin-top: 15px;
+   border-radius: 15px;
+   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.elan__add img{
+   width: 50%;
+   height: 70%;
+   cursor: pointer;
 }
