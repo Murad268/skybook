@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+   padding-top: 60px;
 }
 ol, ul {
 	list-style: none;
@@ -53,6 +54,12 @@ body {
 
 /* header */
 .navbar {
+   z-index: 10;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   background : #4D0008;
    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
    padding: 10px;
 }
@@ -131,6 +138,10 @@ body {
 /* main */
 .main {
    overflow: hidden;
+  
+}
+.main__wrapper {
+   width: 100%;
    position: relative;
 }
 .mainMenu {
@@ -198,6 +209,11 @@ body {
    font-size: 15px;
 }
 
+a {
+   text-decoration: none;
+   color: black;
+   font-weight: 900;
+}
 .main {
    margin-top: 20px;
    height: max-content;
@@ -252,6 +268,10 @@ img {
 
 
 /* asideleft */
+.asideLeft {
+   width: 250px;
+   position: fixed;
+}
 .asideLeft__user {
    margin-top: 20px;
    background: #0F0F0F;
@@ -309,6 +329,7 @@ img {
    justify-content: space-between;
    align-items: center;
    margin-top: 10px;
+   width: 100%;
 }
 
 .asideLeft__user__messaggess__body__messagge__icon {
@@ -337,9 +358,15 @@ img {
 
 /* asideright */
 
-
+.asideRight {
+   width: 250px;
+   position: fixed;
+   top: 20;
+   right: 115px;
+}
 
 .asideRight__top {
+
    padding: 15px;
    display: flex;
    justify-content: space-between;
@@ -400,10 +427,10 @@ img {
    display: flex;
    justify-content: center;
    align-items: center;
-   width: 100%;
+   width: 60%;
    background: white;
-   height: 200px;
-   margin-top: 15px;
+   height: 100px;
+   margin: 15px auto 15px auto;
    border-radius: 15px;
    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
@@ -412,4 +439,171 @@ img {
    width: 50%;
    height: 70%;
    cursor: pointer;
+}
+
+
+
+/* mainContent */
+
+
+ .cf {
+   padding: 0;
+   position: relative;
+ }
+ .status {
+   margin: 11px 0;
+ }
+ .contentMain {
+   padding-top: 30px;
+ }
+ #post__wrapper {
+   width: 100%;
+   margin: 10px auto 0;
+   border: 1px solid #D0D1D5;
+   border-top: 0;
+   border-radius: 2px;
+   padding: 12px;
+   background: #F7F29B;
+   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+ }
+ 
+ 
+ 
+ .arrow {
+   position: absolute;
+   width: 12px;
+   border: none;
+   height: auto;
+   right: 0px;
+ }
+ 
+ .profile-pic {
+   width: 40px;
+   height: auto;
+   float: left;
+   margin-right: 8px;
+ }
+ 
+ .name,
+ .date {
+   margin: 0;
+ }
+ 
+ .name {
+   color: #385A97;
+   font-size: 15px;
+   margin-bottom: 5px;
+ }
+ 
+ .date {
+   font-size: 12px;
+   color: #90949C;
+ }
+ 
+ main {
+   font-size: 13px;
+ }
+ 
+ main .status {
+   margin-bottom: 11px;
+ }
+ 
+ .img-content {
+   width: 100%;
+   margin-bottom: 11px;
+   border: 1px solid rgba(0, 0, 0, .1);
+ }
+ 
+ .action a {
+   color: #7F7F7F;
+ }
+ 
+ .action div {
+   display: inline-block;
+ }
+ 
+ .action div p:hover {
+   text-decoration: underline;
+ }
+ 
+ .action div:nth-child(n + 2) {
+   margin-left: 20px;
+ }
+ 
+ .like img,
+ .comment img,
+ .share img {
+   display: inline-block;
+   width: 18px;
+   vertical-align: text-bottom;
+ }
+ 
+ .like p {
+   color: #1787FA;
+ }
+ 
+ .like p,
+ .comment p,
+ .share p {
+   display: inline-block;
+ }
+ 
+ .share img {
+   opacity: .2;
+ }
+ 
+ .cf:before,
+ .cf:after {
+   content: "";
+   /* 1 */
+   display: table;
+   /* 2 */
+ }
+ 
+ .cf:after {
+   clear: both;
+ }
+ 
+ .like i {
+   font-size: 17px;
+}
+
+.like p, .comment p, .share p {
+   font-size: 17px;
+   color: black;
+}
+
+
+.add__post {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 20px;
+}
+
+.add__post input {
+   border-radius: 10px;
+   height: 35px;
+   width: 380px;
+   border: none;
+   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+   padding-left: 10px;
+}
+
+.fa-image {
+   font-size: 30px;
+   cursor: pointer;
+   color: green;
+}
+.add__post button {
+   width: 100px;
+   height: 35px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.pagination {
+   padding: 20px 0 20px 140px;
+   margin: 0 auto;
 }

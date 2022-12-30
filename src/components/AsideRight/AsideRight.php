@@ -44,16 +44,5 @@
             Lorem ipsum dolor sit amet...
          </div>
       </div>
-      <div class="elan">
-         <div class="elan__top">
-            <div class="elan__image">
-               <img src="assets/icons/logo.png  " alt="">
-            </div>
-            <div class="elan__title">Title</div>
-         </div>
-         <div class="elan__src">
-            Lorem ipsum dolor sit amet...
-         </div>
-      </div>
    </div>
 </aside>
