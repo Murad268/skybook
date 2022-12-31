@@ -136,6 +136,16 @@ body {
 }
 
 /* main */
+.filter__posts {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 20px;
+ 
+}
+.filter__posts a {
+   font-size: 12px;
+   padding: 8px;
+}
 .main {
    overflow: hidden;
   
