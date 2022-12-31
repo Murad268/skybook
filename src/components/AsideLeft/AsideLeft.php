@@ -11,7 +11,7 @@
       <div class="asideLeft__user__messaggess__top">
          <div class="asideLeft__user__messaggess__top__left">Messanger</div>
          <div class="asideLeft__user__messaggess__top__right">
-            <a href="">Çıx</a>
+            <a onclick="return confirm('çıxmaq istədiyinizdən əminsinizmi?')" href="./exit.php">Çıx</a>
          </div>
       </div>
       <div class="asideLeft__user__messaggess__body">

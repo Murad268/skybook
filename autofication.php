@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +9,13 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-   <link rel="stylesheet" href="./src/styles/style.css">
+   <link rel="stylesheet" href="./src/styles/autofication.css">
    <title>Document</title>
 </head>
-<body>
+<body class="autBody">
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="#">
+		<form method="post" action="./src/server/process.php">
 			<h1>Qeydiyyat</h1>
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -20,14 +23,14 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>və ya qeydiyyat üçün e-poçtunuzdan istifadə edin</span>
-			<input type="text" placeholder="Login" />
-			<input type="email" placeholder="Elektron poçt" />
-			<input type="password" placeholder="Şifrə" />
-			<button>Qeyd ol</button>
+			<input name="user_login" type="text" placeholder="Login" />
+			<input name="user_email" type="email" placeholder="Elektron poçt" />
+			<input name="user_pass" type="password" placeholder="Şifrə" />
+			<button type="submit" name="registration__btn">Qeyd ol</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form action="#">
+		<form method="post" action="./src/server/process.php">
 			<h1>Daxil olmaq</h1>
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -35,10 +38,20 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>ya da öz hesabın ilə daxil ol</span>
-			<input type="email" placeholder="Elektron poçt" />
-			<input type="password" placeholder="Şifrə" />
+			<input name="user_email" type="email" placeholder="Elektron poçt" />
+			<input name="user_pass" type="password" placeholder="Şifrə" />
+			<?php
+				if(isset($_SESSION["user_reg"])) {?>
+					<div style="font-size: 12px;" class="alert alert-primary" role="alert">
+						<?php
+							echo $_SESSION["user_reg"];
+						?>
+					</div>
+				<?php
+				}
+			?>
 			<a href="#">Şifrəni unutmusan?</a>
-			<button>Daxil ol</button>
+			<button type="submit" name="user_enter">Daxil ol</button>
 		</form>
 	</div>
 	<div class="overlay-container">
@@ -70,6 +83,8 @@
       signInButton.addEventListener('click', () => {
          container.classList.remove("right-panel-active");
       });
+	
+	
    </script>
 </body>
 </html>

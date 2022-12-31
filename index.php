@@ -1,3 +1,6 @@
+<?php
+   session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +15,13 @@
 <body>
    <div class="container">
       <?php
-         require('./src/pages/mainMenu.php');
+         if(isset($_SESSION['email'])) {
+            require('./src/pages/mainMenu.php');
+         } else {
+            header("Location: ./autofication.php");
+         }
       ?>
    </div>
-
    <script src="./src/js/swiped-events.min.js"></script>
    <script src="./src/js/script.js"></script>
 </body>
