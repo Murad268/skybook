@@ -1,4 +1,5 @@
 <?php
+   include('connect.php');
 function minseo ($variable) {
    return htmlspecialchars(trim($variable));
 } 
@@ -8,6 +9,11 @@ function createActivationCode() {
    return $rand;
 }
    if(isset($_SESSION["email"])) {
-      $user_email = $_SESSION["email"];
+      $searchUser = $dbh->prepare("SELECT * FROM users WHERE user_email = ?");
+      $searchUser->execute([$_SESSION["email"]]);
+      $users = $searchUser->fetch(PDO::FETCH_ASSOC);
+      $user_email = $users["user_email"];
+      $user_login = $users["user_login"];
+      $user_id = $users["id"];
    }
 ?>

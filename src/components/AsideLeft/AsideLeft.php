@@ -4,7 +4,7 @@
          <img src="assets/users/image.png" alt="">
       </div>
       <div class="asideLeft__user__name">
-         Murad Agamedov
+         <?=$user_login?>
       </div>
    </div>
    <div class="asideLeft__user__messaggess">

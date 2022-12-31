@@ -584,12 +584,16 @@ img {
 .add__post input {
    border-radius: 10px;
    height: 35px;
-   width: 380px;
+   width: 360px;
    border: none;
    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
    padding-left: 10px;
+   margin-right: 20px;
 }
-
+.add__post form {
+   display: flex;
+   align-items: center;
+}
 .fa-image {
    font-size: 30px;
    cursor: pointer;
@@ -601,6 +605,7 @@ img {
    display: flex;
    justify-content: center;
    align-items: center;
+   margin-left: 20px;
 }
 
 .pagination {
@@ -610,3 +615,52 @@ img {
 
 
 
+
+
+/* add_image__modal */
+
+.add_image__modal {
+   border-radius: 15px;
+   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100vh;
+   background: rgba(0, 0, 0, 0.9);
+   z-index: 100;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   visibility: hidden;
+   opacity: 0;
+   transition: 0.3s;
+}
+.add_image__modal textarea {
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.add_image__modal__active {
+   visibility: visible;
+   opacity: 1;
+}
+.add_image__modal__box {
+   background: white;
+   width: 550px;
+   height: 350px;
+   padding: 80px;
+   position: relative;
+}
+
+.add_image__modal__box button {
+   display: block;
+   margin: 0 auto;
+}
+
+.addPostModalExit {
+   position: absolute;
+   top: 15px;
+   right: 15px;
+   color: #4D0008;
+   font-size: 35px;
+   cursor: pointer;
+}

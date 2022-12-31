@@ -131,6 +131,7 @@
          $searchUser->execute([$email, $pass, 1]);
          $countUsers = $searchUser->rowCount();
          if($countUsers > 0) {
+            unset ($_SESSION['user_reg']);
             $_SESSION["email"] = $email;
             header("Location: ../../index.php");
             exit();
@@ -139,6 +140,38 @@
          $_SESSION["user_reg"] = "Elekron poçt və ya şifrə yanlışdır";
          header("Location: ../../autofication.php");
          exit();
+      }
+   }
+  
+   if(isset($_POST['add_post'])) {
+      $post = minseo($_POST["post"]);
+      if($post != "") {
+         $addPost = $dbh->prepare("INSERT into posts (post, user_id) VALUES (?,?)");
+         $addPost->execute([$post, $user_id]);
+         header('Location: ' . $_SERVER['HTTP_REFERER']);
+      } else {
+         header('Location: ' . $_SERVER['HTTP_REFERER']);
+      }
+   }
+
+
+   if(isset($_POST['add__img__post'])) {
+      $post = minseo($_POST["post"]);
+      $img = $_FILES["img"];
+  
+      if($post AND $img) {
+        $imagetemp =  $img['tmp_name'];
+        $imagename = $img['name'];
+        $add_post = $dbh->prepare("INSERT INTO posts (post, user_id, img) VALUES (?, ?, ?)");
+        $add_post->execute([$post, $user_id, $imagename]);
+         $rrr = createActivationCode();
+         if(move_uploaded_file($imagetemp, '../../assets/images/posts/' .$rrr.$imagename)) {
+             header('Location: ' . $_SERVER['HTTP_REFERER']);
+         } else {
+             echo "Failed to move your image.";
+         }
+      } else {
+         header('Location: ' . $_SERVER['HTTP_REFERER']);
       }
    }
 ?>

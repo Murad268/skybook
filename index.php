@@ -15,6 +15,7 @@
 <body>
    <div class="container">
       <?php
+      include "./src/server/parameters.php";
          if(isset($_SESSION['email'])) {
             require('./src/pages/mainMenu.php');
          } else {

@@ -76,13 +76,16 @@
    </div>
    <main class="contentMain">
       <div class="add__post">
-         <form action="">
-            <input placeholder="yeni nələr var?" type="text" name="" id="">
-         </form>
-         <i class="fas fa-image"></i>
-         <button class="btn btn-success">
+   
+         <form method="post" action="./src/server/process.php">
+            <input name="post" placeholder="yeni nələr var?" type="text" >
+            <i class="openAddPostModal fas fa-image"></i>
+            <button type="submit" name="add_post" class="btn btn-success">
             əlavə et
          </button>
+         </form>
+  
+       
       </div>
       <div id="post__wrapper">
          <header class="cf">
@@ -200,3 +203,24 @@
 
 
 
+<div class="add_image__modal">
+   <div class="add_image__modal__box">
+         <div class="addPostModalExit">
+            <i class="fa fa-window-close" aria-hidden="true"></i>
+         </div>
+         <form enctype="multipart/form-data" method="post" action="./src/server/process.php">
+               <div>
+                  <div class="mb-4 d-flex justify-content-center">
+                     <div class="btn btn-primary btn-rounded">
+                           <label class="form-label text-white m-1" for="customFile1">Choose file</label>
+                           <input name="img" type="file" class="form-control d-none" id="customFile1" />
+                     </div>
+                  </div>
+               </div>
+               <div class="mb-3">
+                  <textarea name="post" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+               </div>
+               <button type="submit" name="add__img__post" class="btn btn-success">Əlavə et</button>
+         </form>
+   </div>
+</div>

@@ -49,3 +49,16 @@ statuses()
 
 
 
+function activationModal() {
+   const btn = document.querySelector(".openAddPostModal"),
+         modal = document.querySelector(".add_image__modal");
+         close = document.querySelector(".addPostModalExit");
+   btn.addEventListener("click", () => {
+      modal.classList.add("add_image__modal__active");
+   })
+   close.addEventListener("click", () => {
+      modal.classList.remove("add_image__modal__active");
+   })
+}
+
+activationModal()
