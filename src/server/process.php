@@ -146,8 +146,9 @@
    if(isset($_POST['add_post'])) {
       $post = minseo($_POST["post"]);
       if($post != "") {
-         $addPost = $dbh->prepare("INSERT into posts (post, user_id) VALUES (?,?)");
-         $addPost->execute([$post, $user_id]);
+         $addPost = $dbh->prepare("INSERT into posts (post, user_id, create_time) VALUES (?,?,?)");
+         $time = time();
+         $addPost->execute([$post, $user_id, $time]);
          header('Location: ' . $_SERVER['HTTP_REFERER']);
       } else {
          header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -162,9 +163,10 @@
       if($post AND $img) {
         $imagetemp =  $img['tmp_name'];
         $imagename = $img['name'];
-        $add_post = $dbh->prepare("INSERT INTO posts (post, user_id, img) VALUES (?, ?, ?)");
-        $add_post->execute([$post, $user_id, $imagename]);
-         $rrr = createActivationCode();
+        $add_post = $dbh->prepare("INSERT INTO posts (post, user_id, img, create_time) VALUES (?, ?, ?, ?)");
+        $time = time();
+        $rrr = createActivationCode();
+        $add_post->execute([$post, $user_id, $rrr.$imagename, $time]);
          if(move_uploaded_file($imagetemp, '../../assets/images/posts/' .$rrr.$imagename)) {
              header('Location: ' . $_SERVER['HTTP_REFERER']);
          } else {

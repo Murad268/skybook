@@ -1,3 +1,41 @@
+<?php
+   if(isset($_REQUEST["sayfalama"])) {
+      $sayfalama = $_REQUEST["sayfalama"];
+   } else {
+      $sayfalama = 1;
+   }
+   if(isset($_REQUEST["posts"])) {
+      $posts = $_REQUEST["posts"];
+      $sayfalamaKosulu = "&posts=$posts";
+   } else {
+    
+      $sayfalamaKosulu = "";
+   }
+  
+   $sayfalamaIcinButonSayisi = 2;
+   $sayfaBasinaGosterilecek = 30;
+   $toplamKayitSayisiSorgusu = $dbh->prepare("SELECT * FROM posts");
+   $toplamKayitSayisiSorgusu->execute();
+   $toplamKayitSayisi = $toplamKayitSayisiSorgusu->rowCount();
+   $sayfalamayBaslayacaqKayotSayisi = ($sayfalama*$sayfaBasinaGosterilecek) - $sayfaBasinaGosterilecek;
+   $bulunanSafyaSayisi = ceil($toplamKayitSayisi/$sayfaBasinaGosterilecek);
+   if(!isset($_GET["posts"])) {
+      $searchPosts = $dbh->prepare("SELECT * FROM posts ORDER BY likes DESC LIMIT $sayfalamayBaslayacaqKayotSayisi, $sayfaBasinaGosterilecek");
+   } else {
+      $query = $_GET["posts"];
+      if($query=="uplikes") {
+         $searchPosts = $dbh->prepare("SELECT * FROM posts ORDER BY likes DESC LIMIT $sayfalamayBaslayacaqKayotSayisi, $sayfaBasinaGosterilecek");
+      } else if($query=="downlikes") {
+         $searchPosts = $dbh->prepare("SELECT * FROM posts ORDER BY likes ASC LIMIT $sayfalamayBaslayacaqKayotSayisi, $sayfaBasinaGosterilecek");
+      } else if($query=="newposts") {
+         $searchPosts = $dbh->prepare("SELECT * FROM posts ORDER BY create_time DESC LIMIT $sayfalamayBaslayacaqKayotSayisi, $sayfaBasinaGosterilecek");
+      } else if($query=="lastposts") {
+         $searchPosts = $dbh->prepare("SELECT * FROM posts ORDER BY create_time ASC LIMIT $sayfalamayBaslayacaqKayotSayisi, $sayfaBasinaGosterilecek");
+      }
+   }
+   $searchPosts->execute();
+   $posts = $searchPosts->fetchAll(PDO::FETCH_ASSOC);
+?>
 <div></div>
 <section class="main">	
    <div class="main__wrapper">
@@ -77,10 +115,10 @@
    <main class="contentMain">
       <div class="filter__posts">
          <a href="" class="friends btn btn-success">Dostlarımın postları</a>
-         <a href="" class="friends btn btn-primary">Ən çox bəyənilənlər</a>
-         <a href="" class="friends btn btn-danger">Ən az bəyənilənlər</a>
-         <a href="" class="friends btn btn-warning">Ən yeni postlar</a>
-         <a href="" class="friends btn btn-dark">Ən köhnə postlar</a>
+         <a href="?posts=uplikes" class="friends btn btn-primary">Ən çox bəyənilənlər</a>
+         <a href="?posts=downlikes" class="friends btn btn-danger">Ən az bəyənilənlər</a>
+         <a href="?posts=newposts" class="friends btn btn-warning">Ən yeni postlar</a>
+         <a href="?posts=lastposts" class="friends btn btn-dark">Ən köhnə postlar</a>
       </div>
       <div class="add__post">
          <form method="post" action="./src/server/process.php">
@@ -91,50 +129,81 @@
          </button>
          </form>
       </div>
-      <div id="post__wrapper">
-         <header class="cf">
-            <img src="http://2016.igem.org/wiki/images/e/e0/Uclascrolldown.png" class="arrow" />
-            <a href=#><img class='profile-pic' src="https://scontent-atl3-1.xx.fbcdn.net/v/t1.0-1/p320x320/15181_10152546593877801_7195567909714140576_n.png?oh=bdab6394098ec9afbdf619bb17f155b9&oe=5893B18E"></a>
-            <h1 class="name">
-               <a href="#">Tesla</a>
-            </h1>
-            <p class="date">2 hr ago</p>
-         </header>
-         <p class="status">Tesla drivers just passed 3 billion electric miles, saving the world 120M gallons of gas 👍</p>
-         <img class="img-content" src="https://www.tesla.com/sites/default/files/red-tesla-model-s.jpg" />
-         <div class="action">
-            <div class="like">
-               <a href="#">
-               <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                  <p>Like</p>
-               </a>
-            </div>
-            <div class="comment">
-               <a href="#">
-                  <i class="fa fa-comment" aria-hidden="true"></i>
-                  <p>Comment</p>
-               </a>
-            </div>
-            <div class="share">
-               <a href="#">
-                  <i class="fas fa-share"></i>
-                  <p>
-                  Share
-                  </p>
-               </a>
-            </div>
-         </div>
-      </div>
+      <?php
+         foreach($posts as $post) {?>
+             <div id="post__wrapper">
+               <?php
+                  $getNemeFetch = $dbh->prepare("SELECT * FROM users WHERE id = ?");
+                  $getNemeFetch->execute([$post["user_id"]]);
+                  $getName = $getNemeFetch->fetch(PDO::FETCH_ASSOC);
+               ?>
+               <header class="cf">
+                  <img src="http://2016.igem.org/wiki/images/e/e0/Uclascrolldown.png" class="arrow" />
+                   <?php
+                     if($getName["avatar"] == null) {?>
+                        <a href=#><img class='profile-pic' src="<?php echo 'assets/users/image.png'?>"></a>
+                     <?
+                     }
+                   ?>
+                   <h1 class="name">
+                     <a href="#"><?php echo $getName["user_login"]?></a>
+                  </h1>
+                  <p class="date"><?php echo time_elapsed_string($post["create_time"])?></p>
+               </header>
+               <p class="status"><?php echo $post["post"]?></p>
+               <?php
+                  if($post["img"] != null) {?>
+                     <img class="img-content" src="<?php echo 'assets/images/posts/'.$post["img"]?>" />
+                  <?php
+                  }
+               ?>
+               <div class="action">
+                  <div class="like">
+                     <a href="#">
+                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                        <p><?php echo $post["likes"]?></p>
+                     </a>
+                  </div>
+                  <div class="comment">
+                     <a href="#">
+                        <i class="fa fa-comment" aria-hidden="true"></i>
+                        <p>Comment</p>
+                     </a>
+                  </div>
+               </div>
+            </div>   
+         <?php
+         }
+      ?>
    
    </main>
    <nav aria-label="Page navigation example">
-   <ul class="pagination">
-      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">Next</a></li>
-   </ul>
+   <?php
+         if($bulunanSafyaSayisi>1) {?>
+            <div class="paginationWrapper">
+               <nav aria-label="Page navigation example ">
+                  <ul class="pagination">
+                  <li class="page-item"><a class="page-link" href="?sayfalama=1<? echo $sayfalamaKosulu?>">&laquo;</a></li>
+                  <?php
+                     for($i = $sayfalama-$sayfalamaIcinButonSayisi; $i <= $sayfalama+$sayfalamaIcinButonSayisi; $i++) {
+                        if(($i > 0) and ($i <= $bulunanSafyaSayisi)) {
+                           $curr = $i;
+                        if($sayfalama == $i) {
+                           echo "<li style=\"cursor: pointer\" class=\"page-item\"><div style=\"background: red; color: white\" class=\"page-link\">$curr</div></li>";
+                        } else {
+                           echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?sayfalama=$curr$sayfalamaKosulu\">$curr</a></li>";
+                        }
+                     }
+                  }
+                  ?>
+                     
+                     <li class="page-item"><a class="page-link"  href="?sayfalama=<?=$bulunanSafyaSayisi.$sayfalamaKosulu?>">&raquo;</a></li>
+                  </ul>
+               </nav>
+            </div>
+         <?php
+         }
+      ?>
 </nav>
 </section>
 

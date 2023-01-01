@@ -674,3 +674,7 @@ img {
    font-size: 35px;
    cursor: pointer;
 }
+
+.profile-pic {
+   border-radius: 100%;
+}
