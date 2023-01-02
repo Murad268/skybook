@@ -149,8 +149,7 @@
                         }
                      }
                   }
-                  ?>
-                     
+                  ?>     
                      <li class="page-item"><a class="page-link"  href="?sayfalama=<?=$bulunanSafyaSayisi.$sayfalamaKosulu?>">&raquo;</a></li>
                   </ul>
                </nav>
@@ -165,7 +164,6 @@
       include("./src/components/AsideRight/AsideRight.php");
    ?>
   </div>
-
   <?php
   
 ?>

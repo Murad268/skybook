@@ -763,3 +763,66 @@ img {
 .cf .drowpBtn:active {
    background: transparent
 }
+
+
+/* add_elan_modal */
+
+.add_elan__modal {
+   border-radius: 15px;
+   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100vh;
+   background: rgba(0, 0, 0, 0.9);
+   z-index: 100;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   visibility: hidden;
+   opacity: 0;
+   transition: 0.3s;
+}
+.add_elan__modal textarea {
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.add_elan__modal__active {
+   visibility: visible;
+   opacity: 1;
+}
+.add_elan__modal__box {
+   background: white;
+   width: 550px;
+   height: 350px;
+   padding: 50px;
+   position: relative;
+}
+
+.add_elan__modal__box button {
+   display: block;
+   margin: 0 auto;
+}
+
+.addElanModalExit {
+   position: absolute;
+   top: 15px;
+   right: 15px;
+   color: #4D0008;
+   font-size: 35px;
+   cursor: pointer;
+}
+.elan {
+   position: relative;
+}
+.elan_sil a{
+   color: red;
+   position: absolute;
+   bottom: 5px;
+   right: 5px;
+   cursor: pointer;
+}
+
+.elan__src a {
+   color: blue;
+}

@@ -224,4 +224,39 @@
          }
       }
    }
+
+
+
+   if(isset($_POST['add__elan__post'])) {
+      $post = minseo($_POST["elan"]);
+      $img = $_FILES["img"];
+      $title = minseo($_POST["title"]);
+      if($post AND $img AND $title) {
+        $imagetemp =  $img['tmp_name'];
+        $imagename = $img['name'];
+        
+        $add_post = $dbh->prepare("INSERT INTO elanlar (elan_title, elan_img, elan_desc, user_id, create_time) VALUES (?, ?, ?, ?, ?)");
+        $time = time();
+        $rrr = createActivationCode();
+        $add_post->execute([minseo($_POST["title"]), $rrr.$imagename, minseo($_POST["elan"]), $user_id, $time]);
+         if(move_uploaded_file($imagetemp, '../../assets/images/elanlar/'.$rrr.$imagename)) {
+             header('Location: ' . $_SERVER['HTTP_REFERER']);
+         } else {
+             echo "Failed to move your image.";
+         }
+      } else {
+         header('Location: ' . $_SERVER['HTTP_REFERER']);
+      }
+   }
+
+
+
+   if(isset($_REQUEST["deleteelan"])) {
+     $fetchDeleteElan = $dbh->prepare("DELETE FROM elanlar WHERE id = ? AND user_id = ?");
+     $fetchDeleteElan->execute([$_GET["id"], $user_id]);
+     $deletedElan = $fetchDeleteElan->rowCount();
+     if($deletedElan>0) {
+         header('Location: ' . $_SERVER['HTTP_REFERER']);
+     }
+   }
 ?>
