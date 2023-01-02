@@ -41,6 +41,10 @@ function createActivationCode() {
    $rand = sha1(mt_rand(10000,99999).time());
    return $rand;
 }
+function donusumleriGeriDondur($deger) {
+   $geriDondur = htmlspecialchars_decode($deger, ENT_QUOTES);
+   return $geriDondur;
+}
    if(isset($_SESSION["email"])) {
       $searchUser = $dbh->prepare("SELECT * FROM users WHERE user_email = ?");
       $searchUser->execute([$_SESSION["email"]]);

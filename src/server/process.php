@@ -176,4 +176,23 @@
          header('Location: ' . $_SERVER['HTTP_REFERER']);
       }
    }
+
+   if(isset($_REQUEST["likeprocess"])) {
+      if($_REQUEST["likeprocess"]=="like") {
+         $addLike = $dbh->prepare("INSERT INTO likes (user_id, post_id) VALUES (?,?)");
+         $addLike->execute([$user_id, (int)$_GET["post_id"]]);
+         $addedLikeCount = $addLike->rowCount();
+         if($addedLikeCount > 0) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+         }
+      } else {
+         $unlike = $dbh->prepare("DELETE FROM likes WHERE user_id = ? AND  post_id = ?");
+         $unlike->execute([$user_id, (int)$_GET["post_id"]]);
+         $unlikeLikeCount = $unlike->rowCount();
+         if($unlikeLikeCount > 0) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+         }
+      }
+
+   }
 ?>

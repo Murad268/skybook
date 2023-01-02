@@ -146,11 +146,11 @@
                      }
                    ?>
                    <h1 class="name">
-                     <a href="#"><?php echo $getName["user_login"]?></a>
+                     <a href="#"><?php echo donusumleriGeriDondur($getName["user_login"])?></a>
                   </h1>
                   <p class="date"><?php echo time_elapsed_string($post["create_time"])?></p>
                </header>
-               <p class="status"><?php echo $post["post"]?></p>
+               <p class="status"><?php echo donusumleriGeriDondur($post["post"])?></p>
                <?php
                   if($post["img"] != null) {?>
                      <img class="img-content" src="<?php echo 'assets/images/posts/'.$post["img"]?>" />
@@ -158,12 +158,33 @@
                   }
                ?>
                <div class="action">
-                  <div class="like">
-                     <a href="#">
-                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                        <p><?php echo $post["likes"]?></p>
-                     </a>
-                  </div>
+                  <?php
+                     $searchLike = $dbh->prepare("SELECT * FROM likes WHERE user_id = ? AND post_id = ?");
+                     $searchLike->execute([$user_id, $post["id"]]);
+                     $likedCount = $searchLike->rowCount();
+                     $searchPostInLikes= $dbh->prepare("SELECT * FROM likes WHERE post_id = ?");
+                     $searchPostInLikes->execute([$post["id"]]);
+                     $postLikes = $searchPostInLikes->rowCount();
+                     if($likedCount>0) {?>
+                        <div class="like">
+                           <a href="./src/server/process.php?post_id=<?php echo $post["id"] ?>&likeprocess=unlike">
+                           <i style="color: blue" class="fa fa-thumbs-up" aria-hidden="true"></i>
+                              <p><?php echo $postLikes?></p>
+                           </a>
+                        </div>
+                     <?php
+                     } else {?>
+                       
+                       <div class="like">
+                           <a href="./src/server/process.php?post_id=<?php echo $post["id"] ?>&likeprocess=like">
+                           <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                              <p><?php echo $postLikes?></p>
+                           </a>
+                        </div>
+                     <?php
+                     }
+                  ?>
+                
                   <div class="comment">
                      <a href="#">
                         <i class="fa fa-comment" aria-hidden="true"></i>
