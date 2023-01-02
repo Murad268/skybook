@@ -17,7 +17,13 @@
       <?php
       include "./src/server/parameters.php";
          if(isset($_SESSION['email'])) {
-            require('./src/pages/mainMenu.php');
+            if(!isset($_REQUEST["page"])) {
+               require('./src/pages/mainMenu.php');
+            } elseif($_REQUEST["page"]=="comments") {
+               $post_id = $_REQUEST["post"];
+               require('./src/pages/comments.php');
+            }
+          
          } else {
             header("Location: ./autofication.php");
          }

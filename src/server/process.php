@@ -195,4 +195,17 @@
       }
 
    }
+
+
+   if(isset($_POST["add_comment"])) {
+      if($_POST["comment"] == "") {
+         header('Location: ' . $_SERVER['HTTP_REFERER']);
+      }
+      $addComment = $dbh->prepare("INSERT INTO comments (post_id, comment, user_id) VALUES (?,?,?)");
+      $addComment->execute([minseo($_POST["post_id"]), minseo($_POST["comment"]),$user_id]);
+      $addedCommentCount = $addComment->rowCount();
+      if($addedCommentCount>0) {
+         header('Location: ' . $_SERVER['HTTP_REFERER']);
+      }
+   }
 ?>

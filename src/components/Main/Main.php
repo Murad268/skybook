@@ -8,7 +8,6 @@
       $posts = $_REQUEST["posts"];
       $sayfalamaKosulu = "&posts=$posts";
    } else {
-    
       $sayfalamaKosulu = "";
    }
   
@@ -173,8 +172,7 @@
                            </a>
                         </div>
                      <?php
-                     } else {?>
-                       
+                     } else {?>        
                        <div class="like">
                            <a href="./src/server/process.php?post_id=<?php echo $post["id"] ?>&likeprocess=like">
                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
@@ -186,13 +184,13 @@
                   ?>
                 
                   <div class="comment">
-                     <a href="#">
+                     <a href="?page=comments&post=<?php echo $post["id"]?>">
                         <i class="fa fa-comment" aria-hidden="true"></i>
                         <p>Comment</p>
                      </a>
                   </div>
                </div>
-            </div>   
+             </div>   
          <?php
          }
       ?>
