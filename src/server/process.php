@@ -193,7 +193,6 @@
             header('Location: ' . $_SERVER['HTTP_REFERER']);
          }
       }
-
    }
 
 
@@ -206,6 +205,23 @@
       $addedCommentCount = $addComment->rowCount();
       if($addedCommentCount>0) {
          header('Location: ' . $_SERVER['HTTP_REFERER']);
+      }
+   }
+
+
+
+
+
+
+
+   if(isset($_REQUEST["commentprocess"])) {
+      if($_REQUEST["commentprocess"]=="delete") {
+         $deleteFetch = $dbh->prepare("DELETE FROM posts WHERE user_id = ? AND id = ?");
+         $deleteFetch->execute([$user_id, $_GET["id"]]);
+         $deletedCount = $deleteFetch->rowCount();
+         if($deletedCount>0) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+         }
       }
    }
 ?>

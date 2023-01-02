@@ -84,12 +84,7 @@
                      <?php
                      }
                   ?>   
-                  <div class="comment">
-                     <a href="?page=comments&post=<?php echo $post["id"]?>">
-                        <i class="fa fa-comment" aria-hidden="true"></i>
-                        <p>Comment</p>
-                     </a>
-                  </div>
+            
                </div>
              
              </div>  
@@ -120,12 +115,12 @@
                                  ?>
                                  </div>
                                  <div class="comment__aside__c__name">
-                                    <a href=""><?php echo $getName["user_login"] ?></a>
+                                    <a href=""><?php echo donusumleriGeriDondur($getName["user_login"]) ?></a>
                                  </div>
                               </div>
                               <div class="comment__aside__c__comment">
                                  <?php
-                                    echo $comment["comment"]
+                                    echo donusumleriGeriDondur($comment["comment"]);
                                  ?>
                               </div>
                            </div>

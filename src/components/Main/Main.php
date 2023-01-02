@@ -137,7 +137,21 @@
                   $getName = $getNemeFetch->fetch(PDO::FETCH_ASSOC);
                ?>
                <header class="cf">
-                  <img src="http://2016.igem.org/wiki/images/e/e0/Uclascrolldown.png" class="arrow" />
+               <div class="dropdown">
+                  <div class="drowpBtn btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                     <img src="http://2016.igem.org/wiki/images/e/e0/Uclascrolldown.png" class="arrow" />
+                  </div>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                     <?php
+                        if($post["user_id"] == $user_id) {?>
+                           <li><a onclick="return confirm('postu silmək istədiyinizdən əminsinizmi?')" class="dropdown-item" href="./src/server/process.php?commentprocess=delete&id=<?php echo $post["id"]?>">Sil</a></li>
+                        <?php
+                        }
+                     ?>
+                     <li><a class="dropdown-item" href="#">Another action</a></li>
+                     <li><a class="dropdown-item" href="#">Something else here</a></li>
+                  </ul>
+               </div>
                    <?php
                      if($getName["avatar"] == null) {?>
                         <a href=#><img class='profile-pic' src="<?php echo 'assets/users/image.png'?>"></a>
@@ -184,9 +198,13 @@
                   ?>
                 
                   <div class="comment">
+                     <?php
+                         $countCommentsFetch = $dbh->prepare("SELECT * FROM comments WHERE post_id = ?");
+                         $countCommentsFetch->execute([$post["id"]]);
+                     ?>
                      <a href="?page=comments&post=<?php echo $post["id"]?>">
                         <i class="fa fa-comment" aria-hidden="true"></i>
-                        <p>Comment</p>
+                        <p><?php echo  $countCommentsFetch->rowCount()?></p>
                      </a>
                   </div>
                </div>

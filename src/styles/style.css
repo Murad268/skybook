@@ -748,3 +748,18 @@ img {
    justify-content: center;
    align-items: center;
 }
+
+.dropdown-toggle::after {
+   display:none;
+}
+
+.cf .drowpBtn {
+   background: transparent;
+   border: none;
+   position: absolute;
+   right: 0;
+   top: 0;
+}
+.cf .drowpBtn:active {
+   background: transparent
+}
