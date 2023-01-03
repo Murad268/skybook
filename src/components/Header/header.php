@@ -4,18 +4,20 @@
    </div>
    <ul class="navbar__links">
       <li class="navbar__link">
-         <a href=""><i class="fa fa-home" aria-hidden="true"></i></a>
+         <a href="index.php"><i class="fa fa-home" aria-hidden="true"></i></a>
       </li>
       <li class="navbar__link">
          <a href=""><i class="fa fa-user-friends"></i></a>
       </li>
       <li class="navbar__link">
-         <a href=""><i class="fa-solid fa-shop"></i></a>
+         <a href="index.php?page=elanlar"><i class="fa-solid fa-shop"></i></a>
       </li>
    </ul>
    <div class="navbar__search">
-      <input placeholder="daxil et" type="search" name="">
-      <button>axtar</button>
+      <form method="post" action="./src/server/process.php">
+         <input placeholder="daxil et" type="search" name="search">
+         <button name="tosearch">axtar</button>
+      </form>
    </div>
    <ul class="navbar__user">
       <li>

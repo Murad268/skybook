@@ -259,4 +259,14 @@
          header('Location: ../../index.php?page=elanlar');
      }
    }
+
+
+   if(isset($_REQUEST["tosearch"])) {
+      $search = minseo($_POST["search"]);
+      if($search=="") {
+         header('Location: ' . $_SERVER['HTTP_REFERER']);
+      } else {
+         header('Location: ../../index.php?page=search&query='.$search);
+      }
+    }
 ?>

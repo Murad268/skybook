@@ -31,7 +31,9 @@
             }  elseif($_REQUEST["page"]=="elan") {
                $elan_id = $_REQUEST["elan_id"];
                require('./src/pages/elan.php');
-            } 
+            } elseif($_REQUEST["page"]=="search") {
+               require('./src/pages/searchResults.php');
+            }
           
          } else {
             header("Location: ./autofication.php");
