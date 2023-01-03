@@ -240,7 +240,7 @@
         $rrr = createActivationCode();
         $add_post->execute([minseo($_POST["title"]), $rrr.$imagename, minseo($_POST["elan"]), $user_id, $time]);
          if(move_uploaded_file($imagetemp, '../../assets/images/elanlar/'.$rrr.$imagename)) {
-             header('Location: ' . $_SERVER['HTTP_REFERER']);
+             header('Location: ../../index.php?page=elanlar' );
          } else {
              echo "Failed to move your image.";
          }
@@ -256,7 +256,7 @@
      $fetchDeleteElan->execute([$_GET["id"], $user_id]);
      $deletedElan = $fetchDeleteElan->rowCount();
      if($deletedElan>0) {
-         header('Location: ' . $_SERVER['HTTP_REFERER']);
+         header('Location: ../../index.php?page=elanlar');
      }
    }
 ?>

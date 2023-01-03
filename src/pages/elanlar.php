@@ -34,7 +34,7 @@
                      <span class="blog-slider__code"><?php echo $elan["create_time"]?></span>
                      <div class="blog-slider__title"><?php echo $elan["elan_title"]?></div>
                      <div class="blog-slider__text"><?php echo mb_substr($elan["elan_desc"], 0, 20)?></div>
-                     <a href="#" class="blog-slider__button">tam oxu</a>
+                     <a href="index.php?page=elan&<?php echo "elan_id=".$elan["id"]?>" class="blog-slider__button">tam oxu</a>
                      </div>
                   </div>  
             <?php

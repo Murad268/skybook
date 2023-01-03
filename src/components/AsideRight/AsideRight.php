@@ -34,12 +34,8 @@
                <div class="elan__src">
                   <?php
                      echo mb_substr(donusumleriGeriDondur($elan["elan_desc"]), 0, 20);
-                     if(mb_strlen(donusumleriGeriDondur($elan["elan_desc"])) > 21) {?>
-                        <a href="">...</a>
-                     <?php    
-                     }?>
-                     <?php
                   ?>
+                 <a href="index.php?page=elan&<?php echo "elan_id=".$elan["id"]?>">...</a>
                </div>
                <?php
                   if($elan["user_id"] == $user_id) {?>

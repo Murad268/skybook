@@ -12,19 +12,20 @@ function time_elapsed_string($ptime)
         return '0 seconds';
     }
 
-    $a = array( 365 * 24 * 60 * 60  =>  'year',
-                 30 * 24 * 60 * 60  =>  'month',
-                      24 * 60 * 60  =>  'day',
-                           60 * 60  =>  'hour',
-                                60  =>  'minute',
-                                 1  =>  'second'
+    $a = array( 365 * 24 * 60 * 60  =>  'il',
+                 30 * 24 * 60 * 60  =>  'ay',
+                      24 * 60 * 60  =>  'gün',
+                           60 * 60  =>  'saat',
+                                60  =>  'dəqiqə',
+                                 1  =>  'saniyə'
                 );
-    $a_plural = array( 'year'   => 'years',
-                       'month'  => 'months',
-                       'day'    => 'days',
-                       'hour'   => 'hours',
-                       'minute' => 'minutes',
-                       'second' => 'seconds'
+    $a_plural = array( 'year'   => 'il',
+                       'ay'  => 'ay',
+                       'gün'    => 'gün',
+                       'saat'   => 'saat',
+                       'dəqiqə' => 'dəqiqə',
+                       'saniyə' => 'saniyə'
+                     //   əgər ingiliscəyə çevirmək lazım olsa
                 );
 
     foreach ($a as $secs => $str)
@@ -33,7 +34,7 @@ function time_elapsed_string($ptime)
         if ($d >= 1)
         {
             $r = round($d);
-            return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' ago';
+            return $r . ' ' . ($r > 1 ? $a_plural[$str] : $str) . ' əvvəl';
         }
     }
 }

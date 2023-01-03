@@ -26,9 +26,12 @@
             } elseif($_REQUEST["page"]=="comments") {
                $post_id = $_REQUEST["post"];
                require('./src/pages/comments.php');
-            } elseif('./src/pages/elanlar.php') {
+            } elseif($_REQUEST["page"]=="elanlar") {
                require('./src/pages/elanlar.php');
-            }
+            }  elseif($_REQUEST["page"]=="elan") {
+               $elan_id = $_REQUEST["elan_id"];
+               require('./src/pages/elan.php');
+            } 
           
          } else {
             header("Location: ./autofication.php");
