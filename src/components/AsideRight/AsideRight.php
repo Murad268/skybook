@@ -4,7 +4,7 @@
          Elanlar
       </div>
       <div class="asideRight__top__right">
-         <a href=""><i class="fa-brands fa-golang"></i></a>
+         <a href="index.php?page=elanlar"><i class="fa-brands fa-golang"></i></a>
       </div>
    </div>
    <div title="elan elave et" class="elan__add">
