@@ -7,7 +7,7 @@
          <a href="index.php"><i class="fa fa-home" aria-hidden="true"></i></a>
       </li>
       <li class="navbar__link">
-         <a href=""><i class="fa fa-user-friends"></i></a>
+         <a href="index.php?page=friendsrequests"><i class="fa fa-user-friends"></i></a>
       </li>
       <li class="navbar__link">
          <a href="index.php?page=elanlar"><i class="fa-solid fa-shop"></i></a>

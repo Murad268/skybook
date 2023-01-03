@@ -33,6 +33,10 @@
                require('./src/pages/elan.php');
             } elseif($_REQUEST["page"]=="search") {
                require('./src/pages/searchResults.php');
+            } elseif($_REQUEST["page"]=="friendsrequests") {
+               require('./src/pages/friendRequests.php');
+            } elseif($_REQUEST["page"]=="userpage") {
+               require('./src/pages/userPage.php');
             }
           
          } else {

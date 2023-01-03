@@ -159,7 +159,7 @@
                      }
                    ?>
                    <h1 class="name">
-                     <a href="#"><?php echo donusumleriGeriDondur($getName["user_login"])?></a>
+                     <a href="index.php?page=userpage&user=<?php echo $post["user_id"] ?>"><?php echo donusumleriGeriDondur($getName["user_login"])?></a>
                   </h1>
                   <p class="date"><?php echo time_elapsed_string($post["create_time"])?></p>
                </header>

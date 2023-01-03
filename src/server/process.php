@@ -269,4 +269,39 @@
          header('Location: ../../index.php?page=search&query='.$search);
       }
     }
+
+    if(isset($_REQUEST["frrequest"])) {
+     
+  
+
+      if($_REQUEST["frrequest"] == "addfriend") {
+         $to_id = $_GET["user_id"];
+         if(!isset($user_id)) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+         }
+         $addFriendFetch = $dbh->prepare(("INSERT INTO frequests (to_id, from_id) VALUES (?,?)"));
+         $addFriendFetch->execute([$to_id, $user_id]);
+      } elseif($_REQUEST["frrequest"] == "cancelfriend") {
+         $req_id = $_REQUEST["req_id"];
+         $deleteReqFetch = $dbh->prepare("DELETE FROM frequests WHERE id = ?");
+         $deleteReqFetch->execute([$req_id]);
+      } elseif($_REQUEST["frrequest"] == "confirmfriend") {
+         $req_id = $_REQUEST["req_id"];
+         $reqFetch = $dbh->prepare("SELECT * FROM frequests WHERE id = ?");
+         $reqFetch->execute([$req_id]);
+         $req = $reqFetch->fetch(PDO::FETCH_ASSOC);
+         
+         $deleteReqFetch = $dbh->prepare("DELETE FROM frequests WHERE id = ?");
+         $deleteReqFetch->execute([$req_id]);
+         if($deleteReqFetch->rowCount()>0) {
+            $addFriendFetch = $dbh->prepare("INSERT INTO friends (friend_first, friend_second) VALUES (?,?)");
+            $addFriendFetch->execute([$req["from_id"], $req["to_id"]]);
+            if($addFriendFetch->rowCount()>0) {
+               header('Location: ' . $_SERVER['HTTP_REFERER']);
+            }
+         }
+      }
+    
+    }
+
 ?>
