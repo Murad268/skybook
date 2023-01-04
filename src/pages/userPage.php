@@ -3,9 +3,30 @@
   $userFetch = $dbh->prepare("SELECT * FROM users WHERE id = ?");
   $userFetch->execute([$_GET["user"]]);
   $user = $userFetch->fetch(PDO::FETCH_ASSOC); 
-  $fetchPosts = $dbh->prepare("SELECT * FROM posts WHERE user_id = ?");
-  $fetchPosts->execute([$_GET["user"]]);
-  $posts = $fetchPosts->fetchAll(PDO::FETCH_ASSOC);
+
+
+   if(isset($_REQUEST["sayfalama"])) {
+      $sayfalama = $_REQUEST["sayfalama"];
+   } else {
+      $sayfalama = 1;
+   }
+   if(isset($_REQUEST["page"])) {
+      $page = $_REQUEST["page"];
+      $users = $_GET["user"];
+      $sayfalamaKosulu = "&page=$page&user=$users";
+   } else {
+      $sayfalamaKosulu = "";
+   }
+   $sayfalamaIcinButonSayisi = 2;
+   $sayfaBasinaGosterilecek = 10;
+   $toplamKayitSayisiSorgusu = $dbh->prepare("SELECT * FROM posts WHERE user_id = ?");
+   $toplamKayitSayisiSorgusu->execute([$_GET["user"]]);
+   $toplamKayitSayisi = $toplamKayitSayisiSorgusu->rowCount();
+   $sayfalamayBaslayacaqKayotSayisi = ($sayfalama*$sayfaBasinaGosterilecek) - $sayfaBasinaGosterilecek;
+   $bulunanSafyaSayisi = ceil($toplamKayitSayisi/$sayfaBasinaGosterilecek);
+   $fetchPosts = $dbh->prepare("SELECT * FROM posts WHERE user_id = ? LIMIT $sayfalamayBaslayacaqKayotSayisi, $sayfaBasinaGosterilecek");
+   $fetchPosts->execute([$_GET["user"]]);
+   $posts = $fetchPosts->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
   <main class="userPage__main">
@@ -54,12 +75,57 @@
                    }
                ?>
             </div>
+            <div class="user__elanlar__top">
+                  İstifadəçinin elanları
+            </div>
+            <div class="user__elanlar">
+     
+            <?php
+               $fethElanlar = $dbh->prepare("SELECT * FROM elanlar WHERE user_id = ? ORDER BY create_time ");
+               $fethElanlar->execute([$_GET["user"]]);
+               $elanlar = $fethElanlar->fetchAll(PDO::FETCH_ASSOC);
+               $elanSayi = $fethElanlar->rowCount();
+               if($elanSayi==0) {
+                  echo "Hazırda heç bir elan yoxdur";
+               }
+               foreach($elanlar as $elan) {?>
+                  <div class="elan">
+                     <div class="elan__top">
+                        <div class="elan__image">
+                           <img src="assets/images/elanlar/<?php echo $elan["elan_img"]?>" alt="">
+                        </div>
+                        <div class="elan__title">
+                        <?php
+                           echo donusumleriGeriDondur($elan["elan_title"])
+                        ?>
+                        </div>
+                     </div>
+                     <div class="elan__src">
+                        <?php
+                           echo mb_substr(donusumleriGeriDondur($elan["elan_desc"]), 0, 20);
+                        ?>
+                     <a href="index.php?page=elan&<?php echo "elan_id=".$elan["id"]?>">...</a>
+                     </div>
+                     <?php
+                        if($elan["user_id"] == $user_id) {?>
+                           <div class="elan_sil">
+                              <a onclick="return confirm('elanı silmək istədiyinizdən əminsinizmi?')" href="./src/server/process.php?deleteelan=true&id=<?php echo $elan["id"]?>"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+                           </div>
+                        <?
+                        }
+                     ?>
+                     
+                  </div>
+               <?php
+               }
+            ?>
+            </div>
          </div>
          <div class="userPage__main__top__name"><?php echo $user["user_login"]?></div>
       </div>
-      <div class="userPage__main__posts <?php echo $fetchPosts->rowCount() > 3? 'postScroll':'' ?>">
+      <div class="userPage__main__posts ">
+         <div class="userPage__main__posts__main <?php echo $fetchPosts->rowCount() > 3? 'postScroll':'' ?>">
          <?php
-        
             foreach($posts as $post) {?>
                <div id="post__wrapper">
                   <?php
@@ -143,7 +209,39 @@
             <?php
             }
          ?>
+         </div>
+         <div>
+         <nav aria-label="Page navigation example">
+         <?php
+               if($bulunanSafyaSayisi>1) {?>
+                  <div class="paginationWrapper">
+                     <nav aria-label="Page navigation example ">
+                        <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="?sayfalama=1<? echo $sayfalamaKosulu?>">&laquo;</a></li>
+                        <?php
+                           for($i = $sayfalama-$sayfalamaIcinButonSayisi; $i <= $sayfalama+$sayfalamaIcinButonSayisi; $i++) {
+                              if(($i > 0) and ($i <= $bulunanSafyaSayisi)) {
+                                 $curr = $i;
+                              if($sayfalama == $i) {
+                                 echo "<li style=\"cursor: pointer\" class=\"page-item\"><div style=\"background: red; color: white\" class=\"page-link\">$curr</div></li>";
+                              } else {
+                                 echo "<li class=\"page-item\"><a class=\"page-link\" href=\"?sayfalama=$curr$sayfalamaKosulu\">$curr</a></li>";
+                              }
+                           }
+                        }
+                        ?>
+                           
+                           <li class="page-item"><a class="page-link"  href="?sayfalama=<?=$bulunanSafyaSayisi.$sayfalamaKosulu?>">&raquo;</a></li>
+                        </ul>
+                     </nav>
+                  </div>
+               <?php
+               }
+            ?>
+      </nav>
+         </div>
       </div>
+ 
   </main>
 
 

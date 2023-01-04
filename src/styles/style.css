@@ -1273,6 +1273,7 @@ img {
    padding-top: 50px;
    display: flex;
    justify-content: space-between;
+   padding-bottom: 20px;
 }
 .userPage__main__top {
    width: 40%;
@@ -1297,11 +1298,12 @@ img {
    font-weight: bold;
 }
 
-.userPage__main__posts {
+.userPage__main__posts__main {
    width: 500px !important;
 }
 
 .postScroll {
+   height: 75vh;
    overflow-y: scroll;
 }
 
@@ -1314,4 +1316,20 @@ img {
 .user__btns a {
    font-size: 12px;
    padding: 6px;
+}
+
+.user__elanlar {
+   margin-top: 10px;
+   padding: 10px;
+   height: 250px;
+   overflow-y: scroll;
+   width: 600px;
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.user__elanlar__top {
+   color: white;
+   font-size: 15px;
+   font-weight: bold;
+   margin-top: 40px;
 }
