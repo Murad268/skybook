@@ -27,6 +27,8 @@
    $fetchPosts = $dbh->prepare("SELECT * FROM posts WHERE user_id = ? LIMIT $sayfalamayBaslayacaqKayotSayisi, $sayfaBasinaGosterilecek");
    $fetchPosts->execute([$_GET["user"]]);
    $posts = $fetchPosts->fetchAll(PDO::FETCH_ASSOC);
+   $fethElanlar = $dbh->prepare("SELECT * FROM elanlar WHERE user_id = ? ORDER BY create_time ");
+   $fethElanlar->execute([$_GET["user"]]);
 ?>
 
   <main class="userPage__main">
@@ -78,11 +80,10 @@
             <div class="user__elanlar__top">
                   İstifadəçinin elanları
             </div>
-            <div class="user__elanlar">
+            <div class="user__elanlar <?php echo $fethElanlar->rowCount()>3?'user__elanlar__scroll':''?>">
      
             <?php
-               $fethElanlar = $dbh->prepare("SELECT * FROM elanlar WHERE user_id = ? ORDER BY create_time ");
-               $fethElanlar->execute([$_GET["user"]]);
+   
                $elanlar = $fethElanlar->fetchAll(PDO::FETCH_ASSOC);
                $elanSayi = $fethElanlar->rowCount();
                if($elanSayi==0) {
@@ -153,6 +154,9 @@
                         if($getName["avatar"] == null) {?>
                            <a href=#><img class='profile-pic' src="<?php echo 'assets/users/image.png'?>"></a>
                         <?
+                        } else {?>
+                           <a href=#><img class='profile-pic' src="<?php echo 'assets/users/'.$getName["avatar"]?>"></a>
+                        <?php
                         }
                      ?>
                      <h1 class="name">

@@ -95,7 +95,7 @@
                   $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
                   $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
                   //Recipients
-                  $mail->setFrom('agamedov94@mail.ru', 'Mailer');
+                  $mail->setFrom('agamedov94@mail.ru', $login);
                   $mail->addAddress($email, "John Doe");     //Add a recipient
                   // $mail->addAddress('ellen@example.com');               //Name is optional
                   // $mail->addReplyTo('info@example.com', 'Information');
@@ -317,4 +317,104 @@
     
     }
 
+
+    if(isset($_POST["change__avatar"])) {
+      $avatar = $_FILES["avatar"];
+      if($avatar != "") {
+         $imagetemp =  $avatar['tmp_name'];
+         $imagename = $avatar['name'];
+         $add_post = $dbh->prepare("UPDATE users SET avatar = ? WHERE id=?");
+         $time = time();
+         $rrr = createActivationCode();
+         $add_post->execute([$rrr.$imagename, $user_id]);
+          if(move_uploaded_file($imagetemp, '../../assets/users/' .$rrr.$imagename)) {
+              header('Location: ' . $_SERVER['HTTP_REFERER']);
+          } else {
+              echo "Failed to move your image.";
+          }
+       } else {
+          header('Location: ' . $_SERVER['HTTP_REFERER']);
+       }
+    }
+
+    if(isset($_POST["changeInfo"])) {
+      $login = minseo($_POST["login"]);
+      $email = minseo($_POST["email"]);
+      $userFetch = $dbh->prepare("SELECT * FROM users WHERE id = ?");
+      $userFetch->execute([$user_id]);
+      $user = $userFetch->fetch(PDO::FETCH_ASSOC);
+      if($email==$user["user_email"]) {
+         $changeFetch = $dbh->prepare("UPDATE users SET user_login=? WHERE id = ?");
+         $changeFetch->execute([$login, $user_id]);
+         if($changeFetch->rowCount()>0) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            exit();
+         }
+      } else {
+            $changeFetch = $dbh->prepare("SELECT * FROM users WHERE user_email = ?");
+            $changeFetch->execute([$email]);   
+            if($changeFetch->rowCount()>0) {
+               $changeFetchh = $dbh->prepare("UPDATE users SET user_login=? WHERE id = ?");
+               $changeFetchh->execute([$login, $user_id]);
+               $_SESSION["have_email"] = "Bu elektron poçt ilə hesab artıq mövcuddur";
+               header('Location: ' . $_SERVER['HTTP_REFERER']);
+               exit();  
+            } else {
+                  try {
+                     $mail = new PHPMailer(true);
+                     $mail->CharSet = 'utf-8';
+                     $code = createActivationCode();
+                     $message = "Dəyərli istifadəçi, təstiqləmə linkiniz: "."<a href="."http://localhost/skybook/src/server/changeEmail.php?email=".$email."&code=".$code.">tıklayın</a>";
+                     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                     $mail->isSMTP();                                            //Send using SMTP
+                     $mail->Host       = 'smtp.mail.ru';                     //Set the SMTP server to send through
+                     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                     $mail->Username   = 'agamedov94@mail.ru';                     //SMTP username
+                     $mail->Password   = 'jCvUUBaSJ4pBWtunQngh';                               //SMTP password
+                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                     //Recipients
+                     $mail->setFrom('agamedov94@mail.ru', $login);
+                     $mail->addAddress($email, $login);     //Add a recipient
+                     // $mail->addAddress('ellen@example.com');               //Name is optional
+                     // $mail->addReplyTo('info@example.com', 'Information');
+                     // $mail->addCC('cc@example.com');
+                     // $mail->addBCC('bcc@example.com');
+            
+                     //Attachments
+                     // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+                     // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+                     //Content
+                     $mail->isHTML(true);                                  //Set email format to HTML
+                     $mail->Subject = 'skyJoke qeydiyyat';
+                     $mail->Body  = $message;
+                     $mail->send();
+                     $changeCode = $dbh->prepare("UPDATE users SET user_email = ?,  user_login = ?, activation_code = ?, status = ? WHERE id=?");
+                     $changeCode->execute([$email, $login, $code, 0, $user_id]);
+                     if($changeCode->rowCount()>0) {
+                        session_destroy();   
+                        header('Location: ../../index.php');
+                        $_SESSION["user_reg"] = "Hesabınız hələ təstiqlənməyib. Təstiqləmə kodu yenidən elektron poçtunuza göndərildi";
+                     }
+               } catch (Exception $e) {
+                  echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+               }
+            }
+        
+         }
+      }
+  
+      if(isset($_POST["changePass"])) {
+         $pass = md5(minseo($_POST["password"]));
+         $changePass = $dbh->prepare("UPDATE users SET user_pass = ? WHERE id=?");
+         $changePass->execute([$pass, $user_id]);
+         if($changePass->rowCount()>0) {
+            session_destroy();
+            header('Location: ../../index.php');
+            exit();
+         } else {
+            header('Location: ../../index.php');
+            exit();
+         }
+      }
 ?>

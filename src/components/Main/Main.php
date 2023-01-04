@@ -156,6 +156,9 @@
                      if($getName["avatar"] == null) {?>
                         <a href=#><img class='profile-pic' src="<?php echo 'assets/users/image.png'?>"></a>
                      <?
+                     } else {?>
+                        <a href=#><img class='profile-pic' src="<?php echo 'assets/users/'.$getName["avatar"]?>"></a>
+                     <?php
                      }
                    ?>
                    <h1 class="name">

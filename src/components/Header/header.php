@@ -48,7 +48,7 @@
          </a>
       </li>
       <li class="user__icon">
-         <a href="">
+         <a href="index.php?page=mypage">
             <img src="assets/users/image.png" alt="">
          </a>
       </li>

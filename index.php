@@ -37,6 +37,8 @@
                require('./src/pages/friendRequests.php');
             } elseif($_REQUEST["page"]=="userpage") {
                require('./src/pages/userPage.php');
+            } elseif($_REQUEST["page"]=="mypage") {
+               require('./src/pages/myPage.php');
             }
           
          } else {
