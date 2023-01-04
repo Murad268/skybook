@@ -43,7 +43,7 @@
          </a>
       </li>
       <li>
-         <a href="">
+         <a href="index.php?page=friendspage">
             <i class="fa-solid fa-user-group"></i>
          </a>
       </li>

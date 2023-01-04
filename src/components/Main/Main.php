@@ -170,7 +170,7 @@
                             <a><?php echo donusumleriGeriDondur($getName["user_login"])?></a>
                         <?php
                         } else {?>
-                           <a href="index.php?page=userpage&user=<?php echo $post["user_id"] ?>"><?php echo donusumleriGeriDondur($getName["user_login"])?></a>
+                           <a href="index.php?page=userpage&user=<?php echo $post["user_id"]?>"><?php echo donusumleriGeriDondur($getName["user_login"])?></a>
                         <?php
                         }
                      ?>

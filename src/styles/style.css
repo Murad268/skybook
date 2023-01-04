@@ -159,7 +159,7 @@ body {
 }
 .main {
    overflow: hidden;
-  
+   padding-bottom: 20px;
 }
 .main__wrapper {
    width: 100%;
@@ -1327,7 +1327,7 @@ img {
 }
 .user__elanlar__scroll {
    overflow-y: scroll;
-   width: 254px;
+   height: 254px;
 }
 .user__elanlar__top {
    color: white;
@@ -1367,3 +1367,55 @@ img {
    color: white;
 }
 
+
+
+/* friendspage */
+
+.friends__main {
+   display: grid;
+   grid-template-columns: 1fr 2fr 1fr;
+}
+
+.friends__main__friend__img {
+   width: 50px;
+   height: 50px;
+   border-radius: 100%;
+}
+.friends__main__friend__img img {
+   width: 100%;
+   height: 100%;
+   border-radius: 100%;
+}
+
+.friends__main__friend__name a {
+   font-size: 15px;
+   font-weight: bold;
+   color: white;
+}
+
+.friends__main__list {
+   padding-top: 25px;
+}
+
+.friends__main__friend {
+   width: 400px;
+   margin: 0 auto;
+   padding: 20px;
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.no__friend{
+   margin-top: 25px;
+   color: white;
+   font-weight: bold;
+   font-size: 15px;
+}
+.friends__main__header {
+   margin-bottom: 25px;
+   color: white;
+   font-weight: bold;
+   font-size: 25px;
+}
