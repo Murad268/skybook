@@ -281,10 +281,16 @@
          }
          $addFriendFetch = $dbh->prepare(("INSERT INTO frequests (to_id, from_id) VALUES (?,?)"));
          $addFriendFetch->execute([$to_id, $user_id]);
+         if($addFriendFetch->rowCount()>0) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+         }
       } elseif($_REQUEST["frrequest"] == "cancelfriend") {
          $req_id = $_REQUEST["req_id"];
          $deleteReqFetch = $dbh->prepare("DELETE FROM frequests WHERE id = ?");
          $deleteReqFetch->execute([$req_id]);
+         if($deleteReqFetch->rowCount()>0) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+         }
       } elseif($_REQUEST["frrequest"] == "confirmfriend") {
          $req_id = $_REQUEST["req_id"];
          $reqFetch = $dbh->prepare("SELECT * FROM frequests WHERE id = ?");
@@ -299,6 +305,13 @@
             if($addFriendFetch->rowCount()>0) {
                header('Location: ' . $_SERVER['HTTP_REFERER']);
             }
+         }
+      } elseif($_REQUEST["frrequest"] == "cancelfriend") {
+         $req_id = $_REQUEST["req_id"];
+         $deleteReqFetch = $dbh->prepare("DELETE FROM friends WHERE id = ?");
+         $deleteReqFetch->execute([$req_id]);
+         if($deleteReqFetch->rowCount()>0) {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
          }
       }
     

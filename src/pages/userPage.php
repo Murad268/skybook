@@ -22,31 +22,29 @@
             ?>
             <div class="user__btns">
                <a href="" class="btn btn-primary sendMess">Mesaj yaz</a>
-               <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                     əməliyyat icra et
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+               <?php
+                   $friendReqSearch = $dbh->prepare("SELECT * FROM frequests WHERE to_id = ? AND from_id = ?");
+                   $friendReqSearch->execute([$_GET["user"], $user_id]);
+                   $req = $friendReqSearch->fetch(PDO::FETCH_ASSOC);
+
+                   $friendSearch = $dbh->prepare("SELECT * FROM friends WHERE (friend_first = ? AND friend_second = ?) OR (friend_second = ? AND  friend_first = ?)");
+                   $friendSearch->execute([$user_id, $_GET["user"], $user_id, $_GET["user"]]);
+                   $friendreq = $friendSearch->fetch(PDO::FETCH_ASSOC);
+                   $user_id = $_GET["user"];
+                   if($friendReqSearch->rowCount()>0) {
+                     if($friendReqSearch->rowCount() > 0){?>
+                        <a href="./src/server/process.php?frrequest=cancelfriend&req_id=<?php echo $req["id"]?>" class="btn btn-warning sendMess">Dostluq istəyini geri çək</a>
                      <?php
-                        $friendReqSearch = $dbh->prepare("SELECT * FROM frequests WHERE to_id = ? AND from_id = ?");
-                        $friendReqSearch->execute([$user_id, $_GET["user"]]);
-                        if($friendReqSearch->rowCount() > 0) {?>
-                           <li><a class="dropdown-item" href="#">Dostluq istəyini geri çək</a></li>
-                        <?php
-                        } else {?>
-                           <li><a class="dropdown-item" href="#">Dostluq istəyini göndər</a></li>
-                        <?php
-                        }
-                        $friendSearch = $dbh->prepare("SELECT * FROM friends WHERE (friend_first = ? AND friend_second = ?) OR (friend_second = ? AND  friend_first = ?)");
-                        $friendSearch->execute([$user_id, $_GET["user"], $_GET["user"], $user_id]);
-                        if($friendSearch->rowCount() > 0) {?>
-                           <li><a class="dropdown-item" href="#">Dostluqdan sil</a></li>
-                        <?php
-                        }
-                     ?>
+                     } elseif($friendReqSearch->rowCount() <= 0 AND $friendSearch->rowCount() <= 0) {?>
+                           <a onclick="return confirm('bu istifadəçiyə dostluq istəyi göndərmək istədiyinizdən əminsiniz?')" href="./src/server/process.php?frrequest=addfriend&user_id=<?php echo $user_id?>" class="btn btn-success sendMess">Dostluq istəyini göndər</a>
+                     <?php
+                     } 
                  
-                  </ul>
-               </div>
+                   } else {?>
+                        <a onclick="return confirm('bu istifadəçini dostluqdan silmək istədiyinizdən əminsinizmi?')" href="./src/server/process.php?frrequest=deletefriend&req_id=<?php echo $friendreq["id"]?>" class="btn btn-danger">dostluqdan sil</a>
+                   <?php
+                   }
+               ?>
             </div>
          </div>
          <div class="userPage__main__top__name"><?php echo $user["user_login"]?></div>

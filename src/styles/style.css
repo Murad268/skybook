@@ -1264,7 +1264,6 @@ img {
    width: 40%;
    display: flex;
    justify-content: space-between;
-   align-items: center
 }
 
 .userPage__main__top__image {
@@ -1298,6 +1297,7 @@ img {
    justify-content: space-between;
 }
 
-.user__btns a, .user__btns button {
+.user__btns a {
    font-size: 12px;
+   padding: 6px;
 }
