@@ -31,6 +31,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
    padding-top: 60px;
+   user-select: none;
 }
 ol, ul {
 	list-style: none;
@@ -1252,4 +1253,51 @@ img {
    font-size: 15px;
    color: white;
    font-weight: bold;
+}
+/* userPage */
+.userPage__main {
+   padding-top: 50px;
+   display: flex;
+   justify-content: space-between;
+}
+.userPage__main__top {
+   width: 40%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center
+}
+
+.userPage__main__top__image {
+   width: 200px;
+   height: 200px;
+}
+
+.userPage__main__top__image img {
+   width: 100%;
+   height: 100%;
+   object-fit: fill;
+}
+
+.userPage__main__top__name {
+   color: white;
+   font-size: 25px;
+   font-weight: bold;
+}
+
+.userPage__main__posts {
+   width: 500px !important;
+}
+
+.postScroll {
+   overflow-y: scroll;
+}
+
+.user__btns {
+   margin-top: 10px;
+   display: flex;
+   justify-content: space-between;
+}
+
+.user__btns a, .user__btns button {
+   font-size: 12px;
 }
