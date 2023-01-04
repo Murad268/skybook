@@ -20,7 +20,7 @@
                         <img src="assets/users/image.png" alt="">
                      </div>
                      <div class="friend__request__login">
-                        <?php echo donusumleriGeriDondur($getName["user_login"])?>
+                        <a href="index.php?page=userpage&user=<?php echo $getName["id"] ?>"><?php echo donusumleriGeriDondur($getName["user_login"])?></a>
                      </div>
                      <div class="friend__request__controlls">
                      <a onclick="return confirm('dostluq təklifini qəbul etmək istədiyinizdən əminsiniz?')" href="./src/server/process.php?frrequest=confirmfriend&req_id=<?php echo $request["id"]?>" class="btn btn-success">qəbul et</a>

@@ -1258,7 +1258,11 @@ img {
    color: white;
    font-weight: bold;
 }
-
+.friend__request__login a {
+   font-size: 15px;
+   color: white;
+   font-weight: bold;
+}
 .noreq {
    font-size: 15px;
    color: white;
