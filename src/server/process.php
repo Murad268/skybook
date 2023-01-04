@@ -306,14 +306,14 @@
                header('Location: ' . $_SERVER['HTTP_REFERER']);
             }
          }
-      } elseif($_REQUEST["frrequest"] == "cancelfriend") {
+      } elseif($_REQUEST["frrequest"] == "deletefriend") {
          $req_id = $_REQUEST["req_id"];
          $deleteReqFetch = $dbh->prepare("DELETE FROM friends WHERE id = ?");
          $deleteReqFetch->execute([$req_id]);
          if($deleteReqFetch->rowCount()>0) {
             header('Location: ' . $_SERVER['HTTP_REFERER']);
          }
-      }
+      } 
     
     }
 

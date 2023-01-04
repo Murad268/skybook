@@ -159,7 +159,16 @@
                      }
                    ?>
                    <h1 class="name">
-                     <a href="index.php?page=userpage&user=<?php echo $post["user_id"] ?>"><?php echo donusumleriGeriDondur($getName["user_login"])?></a>
+                     <?php
+                        if($user_id == $getName["id"]) {?>
+                            <a><?php echo donusumleriGeriDondur($getName["user_login"])?></a>
+                        <?php
+                        } else {?>
+                           <a href="index.php?page=userpage&user=<?php echo $post["user_id"] ?>"><?php echo donusumleriGeriDondur($getName["user_login"])?></a>
+                        <?php
+                        }
+                     ?>
+                    
                   </h1>
                   <p class="date"><?php echo time_elapsed_string($post["create_time"])?></p>
                </header>

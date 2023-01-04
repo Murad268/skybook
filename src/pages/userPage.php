@@ -30,18 +30,26 @@
                    $friendSearch = $dbh->prepare("SELECT * FROM friends WHERE (friend_first = ? AND friend_second = ?) OR (friend_second = ? AND  friend_first = ?)");
                    $friendSearch->execute([$user_id, $_GET["user"], $user_id, $_GET["user"]]);
                    $friendreq = $friendSearch->fetch(PDO::FETCH_ASSOC);
+
+                   $confirmReq = $dbh->prepare("SELECT * FROM frequests WHERE to_id = ? AND from_id = ?");
+                   $confirmReq->execute([$user_id, $_GET["user"]]);
+                   $confirm = $confirmReq->fetch(PDO::FETCH_ASSOC);
+
+
                    $user_id = $_GET["user"];
                    if($friendReqSearch->rowCount()>0) {
-                     if($friendReqSearch->rowCount() > 0){?>
+                     ?>
                         <a href="./src/server/process.php?frrequest=cancelfriend&req_id=<?php echo $req["id"]?>" class="btn btn-warning sendMess">Dostluq istəyini geri çək</a>
                      <?php
-                     } elseif($friendReqSearch->rowCount() <= 0 AND $friendSearch->rowCount() <= 0) {?>
-                           <a onclick="return confirm('bu istifadəçiyə dostluq istəyi göndərmək istədiyinizdən əminsiniz?')" href="./src/server/process.php?frrequest=addfriend&user_id=<?php echo $user_id?>" class="btn btn-success sendMess">Dostluq istəyini göndər</a>
-                     <?php
-                     } 
                  
-                   } else {?>
+                   } elseif($friendSearch->rowCount()>0) {?>
                         <a onclick="return confirm('bu istifadəçini dostluqdan silmək istədiyinizdən əminsinizmi?')" href="./src/server/process.php?frrequest=deletefriend&req_id=<?php echo $friendreq["id"]?>" class="btn btn-danger">dostluqdan sil</a>
+                   <?php
+                   }elseif($confirmReq->rowCount()) {?>
+                     <a onclick="return confirm('dostluq istəyini qəbul etmək istədiyinizdən əminsiniz?')" href="./src/server/process.php?frrequest=confirmfriend&req_id=<?php echo $confirm["id"]?>" class="btn btn-info sendMess">Dostluq istəyini qəbul et</a>
+                   <?php
+                   } else {?>
+                     <a onclick="return confirm('bu istifadəçiyə dostluq istəyi göndərmək istədiyinizdən əminsiniz?')" href="./src/server/process.php?frrequest=addfriend&user_id=<?php echo $user_id?>" class="btn btn-success sendMess">Dostluq istəyini göndər</a>
                    <?php
                    }
                ?>

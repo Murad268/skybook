@@ -7,6 +7,18 @@
          <a href="index.php"><i class="fa fa-home" aria-hidden="true"></i></a>
       </li>
       <li class="navbar__link">
+         <?php
+            $fetchrrequest = $dbh->prepare("SELECT * FROM frequests WHERE to_id = ?");
+            $fetchrrequest->execute([$user_id]);
+            if($fetchrrequest->rowCount() > 0) {?>
+               <div class="frequestCount">
+                  <?php
+                     echo $fetchrrequest->rowCount();
+                  ?>
+               </div>
+            <?php
+            }
+         ?>
          <a href="index.php?page=friendsrequests"><i class="fa fa-user-friends"></i></a>
       </li>
       <li class="navbar__link">

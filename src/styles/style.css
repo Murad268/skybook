@@ -54,6 +54,16 @@ body {
 }
 
 /* header */
+.navbar__link {
+   position: relative;
+}
+.frequestCount {
+   position: absolute;
+   top: -10px;
+   right: -10px;
+   color: white;
+   font-weight: bold;
+}
 .navbar {
    z-index: 10;
    position: fixed;
