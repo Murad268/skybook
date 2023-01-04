@@ -49,7 +49,15 @@
       </li>
       <li class="user__icon">
          <a href="index.php?page=mypage">
-            <img src="assets/users/image.png" alt="">
+            <?php
+               if($user_avatar != null) {?>
+                  <img src="assets/users/<?php echo $user_avatar?>" alt="">
+               <?php
+               } else {?>
+                  <img src="assets/users/image.png" alt="">
+               <?php
+               }
+            ?>
          </a>
       </li>
    </ul>

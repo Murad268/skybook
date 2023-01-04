@@ -53,5 +53,6 @@ function donusumleriGeriDondur($deger) {
       $user_email = $users["user_email"];
       $user_login = $users["user_login"];
       $user_id = $users["id"];
+      $user_avatar = $users["avatar"];
    }
 ?>
