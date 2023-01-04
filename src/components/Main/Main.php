@@ -116,7 +116,7 @@
    <main class="contentMain">
       <div class="filter__posts">
          <a href="" class="friends btn btn-success">Dostlarımın postları</a>
-         <a href="?posts=my" class="friends btn btn-success">Mənim postlarım</a>
+         <a href="?posts=my" class="friends btn btn-info text-white">Mənim postlarım</a>
          <a href="?posts=uplikes" class="friends btn btn-primary">Ən çox bəyənilənlər</a>
          <a href="?posts=downlikes" class="friends btn btn-danger">Ən az bəyənilənlər</a>
          <a href="?posts=newposts" class="friends btn btn-warning">Ən yeni postlar</a>

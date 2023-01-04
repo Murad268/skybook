@@ -50,7 +50,7 @@
 				<?php
 				}
 			?>
-			<a href="#">Şifrəni unutmusan?</a>
+			<a href="./src/pages/resetPassword.php">Şifrəni unutmusan?</a>
 			<button type="submit" name="user_enter">Daxil ol</button>
 		</form>
 	</div>

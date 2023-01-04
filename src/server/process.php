@@ -417,4 +417,57 @@
             exit();
          }
       }
+
+      if(isset($_POST["resetBtn"])) {
+         $email = minseo($_POST["confirmPassword"]);
+         if( $email=="") {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+         } else {
+            $emailSorgula = $dbh->prepare("SELECT * FROM users WHERE user_email = ?");
+            $emailSorgula->execute([$email]);
+            if( $emailSorgula->rowCount()==0) {
+               $_SESSION["user_reg"] = "Belə bir elektron poçt ilə qeydiyyatda olan istifadəçi tapılmadı";
+               header('Location: ../../index.php');
+            }
+            try {
+               $mail = new PHPMailer(true);
+               $mail->CharSet = 'utf-8';
+               $userCode = createActivationCode();
+               $code = md5($userCode);
+               $message = "yeni şifrəniz: ".$userCode."    - daha sonra istfadəçi səhifəsindən şifrənizi dəyişə bilərsiniz";
+               $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+               $mail->isSMTP();                                            //Send using SMTP
+               $mail->Host       = 'smtp.mail.ru';                     //Set the SMTP server to send through
+               $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+               $mail->Username   = 'agamedov94@mail.ru';                     //SMTP username
+               $mail->Password   = 'jCvUUBaSJ4pBWtunQngh';                               //SMTP password
+               $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+               $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+               //Recipients
+               $mail->setFrom('agamedov94@mail.ru', "reset");
+               $mail->addAddress($email, "reset");     //Add a recipient
+               // $mail->addAddress('ellen@example.com');               //Name is optional
+               // $mail->addReplyTo('info@example.com', 'Information');
+               // $mail->addCC('cc@example.com');
+               // $mail->addBCC('bcc@example.com');
+      
+               //Attachments
+               // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+               // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+               //Content
+               $mail->isHTML(true);                                  //Set email format to HTML
+               $mail->Subject = 'skyJoke şifrə bərpası';
+               $mail->Body  = $message;
+               $mail->send();
+               $changePass = $dbh->prepare("UPDATE users SET user_pass=? WHERE user_email=?");
+               $changePass->execute([$code, $email]);
+               if($changePass->rowCount()>0) {
+                  $_SESSION["user_reg"] = "Avtomatik təyin edilmiş şifrə elektron poçtunuza göndərildi";
+                  header('Location: ../../index.php');
+               }
+         } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+         }
+         }
+      }
 ?>
