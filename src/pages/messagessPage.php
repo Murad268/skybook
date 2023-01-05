@@ -1,7 +1,8 @@
 <?php
   include('./src/components/Header/header.php');
   include("./src/components/AsideLeft/AsideLeft.php");
-
+  $seenFetch = $dbh->prepare("UPDATE messaggess SET seen=? WHERE from_id=? AND to_id=?");
+  $seenFetch->execute([1, $_GET["message"], $user_id, ]);
    if(isset($_REQUEST["sayfalama"])) {
       $sayfalama = $_REQUEST["sayfalama"];
    } else {

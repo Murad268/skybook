@@ -38,6 +38,19 @@
          </a>
       </li>
       <li>
+            <?php
+               $fetchSeen = $dbh->prepare("SELECT * FROM messaggess WHERE to_id = ? AND seen=0");
+               $fetchSeen->execute([$user_id]);
+               if($fetchSeen->rowCount()>0) {?>
+                <div  div class="frequestCount">
+                  <?php
+                     echo $fetchSeen->rowCount();
+                  ?>
+               </div>
+               <?php
+               }
+            ?>
+           
          <a href="index.php?page=mess">
             <i class="fab fa-facebook-messenger"></i>
          </a>

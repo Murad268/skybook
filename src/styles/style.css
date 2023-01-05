@@ -57,13 +57,17 @@ body {
 .navbar__link {
    position: relative;
 }
-.frequestCount {
+.navbar__user li{
+   position: relative;
+}
+.navbar__user .frequestCount, .frequestCount {
    position: absolute;
    top: -10px;
    right: -10px;
    color: white;
    font-weight: bold;
 }
+
 .navbar {
    z-index: 10;
    position: fixed;

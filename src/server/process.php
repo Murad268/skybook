@@ -477,7 +477,6 @@
          $id = $_POST["id"];
          $mess = minseo($_POST["mess"]);
          if($mess == "" or $id == "") {
-      
             header('Location: ' . $_SERVER['HTTP_REFERER']);
          } else {
             $searchMess = $dbh->prepare("SELECT * FROM messlist WHERE (to_id=? AND from_id=?) OR (from_id=? OR to_id=?)");

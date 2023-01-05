@@ -43,7 +43,15 @@
                   ?>
                
                   <div class="mess__main__user">
-                     <a class="exit" href="./src/server/process.php?messprocess=deleteallmess&id=<?php echo$id?>"></a>
+                     <a class="exit" href="./src/server/process.php?messprocess=deleteallmess&id=<?php echo$id?>">
+                        <?php
+                             $fetchSeen = $dbh->prepare("SELECT * FROM messaggess WHERE ((to_id = ? AND from_id = ?) OR (from_id=? AND to_id=?)) AND seen=0");
+                             $fetchSeen->execute([$user_id, $getName["id"], $user_id, $getName["id"]]);
+                             if($fetchSeen->rowCount() > 0) {
+                                 echo $fetchSeen->rowCount();
+                             }
+                        ?>
+                     </a>
                      <div class="mess__main__user__top">
                         <div class="mess__main__user__img">
                            <?php
