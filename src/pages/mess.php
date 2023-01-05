@@ -4,6 +4,7 @@
   $fetchMess = $dbh->prepare("SELECT * FROM messlist WHERE from_id = ? OR to_id = ?");
   $fetchMess->execute([$user_id, $user_id]);
   $mess =  $fetchMess->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
   <div class="mess__main">
    <div></div>
@@ -22,6 +23,17 @@
                   $getName = $getNemeFetch->fetch(PDO::FETCH_ASSOC);
                   $fetch = $dbh->prepare("SELECT * FROM messaggess WHERE (to_id = ? AND from_id = ?) OR (from_id=? AND to_id=?) ORDER BY id DESC LIMIT 1");
                   $fetch->execute([$user_id, $id, $user_id, $id]);
+                  if(!$fetch->rowCount()>0) {
+                     $fetchDeleteMess = $dbh->prepare("DELETE FROM messlist WHERE from_id = ? OR to_id = ?" );
+                     $fetchDeleteMess->execute([$user_id, $user_id]);
+                     ?>
+                      <div class="mt-2 noMess">
+                        Hazırda heç bir mesajınız mövcud deyil
+                     </div>
+                     <?php
+                     include("./src/components/AsideRight/AsideRight.php");
+                     exit();
+                  }
                   $fetchEd = $fetch->fetch(PDO::FETCH_ASSOC);
                   if($fetchEd["from_id"] == $user_id) {
                      $who = "məndən";
@@ -31,6 +43,7 @@
                   ?>
                
                   <div class="mess__main__user">
+                     <a class="exit" href="./src/server/process.php?messprocess=deleteallmess&id=<?php echo$id?>"></a>
                      <div class="mess__main__user__top">
                         <div class="mess__main__user__img">
                            <?php

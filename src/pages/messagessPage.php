@@ -22,8 +22,10 @@
          foreach($messages as $message) {
             if($message["from_id"] == $user_id) {?>
              <div class="bg-success messsagesPage__main__list__to">
+             <a onclick="return confirm('mesajı silmək istədiyinizdən əminsiniz?')" class="exit" href="./src/server/process.php?messprocess=deleteallmess&id=<?php echo$message["id"]?>">
+             <i class="fa fa-window-close" aria-hidden="true"></i></a>
                   <?php
-                     echo donusumleriGeriDondur($message["mess"])
+                     echo donusumleriGeriDondur($message["mess"]);
                   ?>
             </div>
             <?php

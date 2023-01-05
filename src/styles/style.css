@@ -1469,6 +1469,14 @@ img {
    padding-top: 20px;
    width: max-content;
    margin: 0 auto;
+   position: relative;
+}
+.mess__main__user .exit {
+   position: absolute;
+   top: 30px;
+   right: 20px;
+   cursor: pointer;
+   color: red
 }
 .mess__main__user__top {
    display: flex;
@@ -1527,6 +1535,7 @@ img {
    font-weight: bold;
    border-radius: 10px;
    margin-top: 20px;
+   position: relative;
 }
 .messsagesPage__main__list__to {
    margin-left: 280px;
@@ -1546,4 +1555,12 @@ img {
    font-weight: bold;
    font-size: 15px;
    color: white;
+}
+
+.messsagesPage__main__list__to .exit {
+   position: absolute;
+   top: 10px;
+   right: 5px;
+   cursor: pointer;
+   color: red
 }

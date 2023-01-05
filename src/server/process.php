@@ -501,4 +501,20 @@
             }   
          }
       }
+
+      if(isset($_GET["messprocess"])) {
+         $id = $_GET["id"];
+         $searchMess = $dbh->prepare("SELECT * FROM messaggess WHERE id = ? AND from_id=?");
+         $searchMess->execute([$id, $user_id]);
+         if( $searchMess->rowCount()>0) {
+            $deleteMess = $dbh->prepare("DELETE FROM messaggess WHERE id=?");
+            $deleteMess->execute([$id]);
+            if($deleteMess->rowCount()>0) {
+               header('Location: ' . $_SERVER['HTTP_REFERER']);
+            }
+         } else {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+         }
+         
+      }
 ?>
