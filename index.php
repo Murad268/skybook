@@ -43,6 +43,8 @@
                require('./src/pages/friendsPage.php');
             } elseif($_REQUEST["page"]=="mess") {
                require('./src/pages/mess.php');
+            } elseif($_REQUEST["page"]=="messagespage") {
+               require('./src/pages/messagessPage.php');
             }
           
          } else {

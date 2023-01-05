@@ -1491,7 +1491,7 @@ img {
    border-radius: 100%;
 }
 
-.mess__main__user__name a, .mess__main__user__text, .sendTime {
+.mess__main__user__name a, .mess__main__user__text a, .sendTime {
    font-size: 15px;
    color: white;
    font-weight: bold;

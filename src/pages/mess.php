@@ -48,9 +48,11 @@
                   </div>
                </div>
                <div class="mess__main__user__text">
-                  <?php
-                     echo donusumleriGeriDondur($fetchEd["mess"])
-                  ?>
+                  <a href="index.php?page=messagespage">
+                     <?php
+                        echo donusumleriGeriDondur($fetchEd["mess"])
+                     ?>
+                  </a>
                </div>
                <div class="sendTime">
                   <div>
