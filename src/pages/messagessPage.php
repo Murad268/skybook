@@ -39,8 +39,15 @@
          }
       ?>
       
-     
+         <div class="mt-5 sendMess">
+            <form method="post" action="./src/server/process.php">
+               <input type="hidden" value="<?php echo $_GET["message"]?>" name="id">
+               <textarea name="mess" class="form-control"></textarea>
+               <button name="sendmess" class="mt-3 btn btn-success">Göndər</button>
+            </form>
+         </div>
    </div>
+
 <?php
    include("./src/components/AsideRight/AsideRight.php");
 ?>

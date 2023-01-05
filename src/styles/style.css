@@ -1538,3 +1538,12 @@ img {
    color: white;
    margin-bottom: 20px;
 }
+
+.sendMess input {
+   width: 200px;
+}
+.noMess {
+   font-weight: bold;
+   font-size: 15px;
+   color: white;
+}

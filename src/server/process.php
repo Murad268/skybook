@@ -477,11 +477,12 @@
          $id = $_POST["id"];
          $mess = minseo($_POST["mess"]);
          if($mess == "" or $id == "") {
+      
             header('Location: ' . $_SERVER['HTTP_REFERER']);
          } else {
             $searchMess = $dbh->prepare("SELECT * FROM messlist WHERE (to_id=? AND from_id=?) OR (from_id=? OR to_id=?)");
-            $searchMess->execute([$id, $user_id, $user_id, $id]);
-            if(!$searchMess->rowCount()>0) {
+            $searchMess->execute([$id, $user_id, $id, $user_id]);
+            if($searchMess->rowCount()>0) {
                $sendMess = $dbh->prepare("INSERT INTO messaggess (to_id, from_id, mess, sendtime ) VALUES (?, ?, ?, ?)");
                $sendMess->execute([$id, $user_id, $mess, time()]);
                if($sendMess->rowCount()>0) {
