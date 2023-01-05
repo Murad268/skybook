@@ -8,6 +8,7 @@
   <div class="mess__main">
    <div></div>
    <div class="mess__main__users">
+     
       <?php
          foreach( $mess as $message) {
             if($message["to_id"] == $user_id) {
@@ -42,13 +43,13 @@
                      ?>
                   </div>
                   <div class="mess__main__user__name">
-                     <a href="">
+                     <a href="index.php?page=userpage&user=<?php echo $getName["id"]?>">
                         <?php echo donusumleriGeriDondur($getName["user_login"])?>
                      </a>
                   </div>
                </div>
                <div class="mess__main__user__text">
-                  <a href="index.php?page=messagespage">
+                  <a href="index.php?page=messagespage&message=<?php echo $id?>">
                      <?php
                         echo donusumleriGeriDondur($fetchEd["mess"])
                      ?>

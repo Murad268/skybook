@@ -1507,3 +1507,34 @@ img {
    margin-top: 15px;
    font-size: 9px;
 }
+
+/* messsagesPage__main */
+.messsagesPage__main {
+   display: grid;
+   grid-template-columns: 1fr 2fr 1fr;
+}
+.messsagesPage__main__list {
+   padding-top: 25px;
+   position: relative;
+
+}
+.messsagesPage__main__list__from, .messsagesPage__main__list__to {
+   width: 250px;
+   height: max-content;
+   padding: 10px;
+   color: white;
+   font-size: 16px;
+   font-weight: bold;
+   border-radius: 10px;
+   margin-top: 20px;
+}
+.messsagesPage__main__list__to {
+   margin-left: 280px;
+}
+
+.messsagesPage__main h2 a{
+   font-size: 20px;
+   font-weight: bold;
+   color: white;
+   margin-bottom: 20px;
+}
