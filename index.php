@@ -41,6 +41,8 @@
                require('./src/pages/myPage.php');
             } elseif($_REQUEST["page"]=="friendspage") {
                require('./src/pages/friendsPage.php');
+            } elseif($_REQUEST["page"]=="mess") {
+               require('./src/pages/mess.php');
             }
           
          } else {

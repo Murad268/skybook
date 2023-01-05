@@ -44,7 +44,7 @@
                }
             ?>
             <div class="user__btns">
-               <a href="" class="btn btn-primary sendMess">Mesaj yaz</a>
+               <a class="btn btn-primary sendMess sendmessbtn">Mesaj yaz</a>
                <?php
                    $friendReqSearch = $dbh->prepare("SELECT * FROM frequests WHERE to_id = ? AND from_id = ?");
                    $friendReqSearch->execute([$_GET["user"], $user_id]);
@@ -249,3 +249,25 @@
   </main>
 
 
+   <div class="writeMess__modal">  
+      <div class="writeMess__modal__block">
+            <i class="fa fa-window-close" aria-hidden="true"></i>
+            <form method="post" action="./src/server/process.php">
+               <div class="form-floating">
+                  <input type="hidden" value="<?php echo $_GET["user"]?>" name="id">
+                  <textarea name="mess" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                  <label for="floatingTextarea">Mesaj</label>
+                  <button name="sendmess" class="mt-3 btn btn-success">Göndər</button>
+               </div>
+            </form>
+      </div>
+   </div>
+
+   <script>
+      document.querySelector(".sendmessbtn").addEventListener("click", () => {
+         document.querySelector(".writeMess__modal").classList.add("writeMess__modal__active");
+      })
+      document.querySelector(".writeMess__modal__block i").addEventListener("click", () => {
+         document.querySelector(".writeMess__modal").classList.remove("writeMess__modal__active");
+      })
+   </script>
