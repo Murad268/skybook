@@ -1573,3 +1573,37 @@ img {
    margin-left: 20px;
    margin-top: 20px;
 }
+
+
+/* notifications__main */
+
+.notifications__main {
+   padding-top: 23px;
+   display: grid;
+   grid-template-columns: 1fr 2fr 1fr;
+}
+
+.notifications__main__list__el, .notifications__main__list__el a {
+   color: white;
+   font-size: 15px;
+   font-weight: bold;
+}
+
+.notifications__main__list__el span a {
+   color: blue
+}
+
+.notifications__main__list__el {
+   margin: 0 auto;
+   padding: 15px;
+   width: 350px;
+   margin-top: 20px;
+   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+   line-height: 21px;
+}
+.no__not {
+   text-align: center;
+   font-weight: bold;
+   font-size: 15px;
+   color: white;
+}

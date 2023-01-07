@@ -33,7 +33,19 @@
    </div>
    <ul class="navbar__user">
       <li>
-         <a href="">
+            <?php
+               $fetchSeen = $dbh->prepare("SELECT * FROM notification WHERE to_id = ? AND seen=0");
+               $fetchSeen->execute([$user_id]);
+               if($fetchSeen->rowCount()>0) {?>
+                <div  div class="frequestCount">
+                  <?php
+                     echo $fetchSeen->rowCount();
+                  ?>
+               </div>
+               <?php
+               }
+            ?>
+         <a href="index.php?page=notifications">
             <i class="fa-solid fa-bell"></i>
          </a>
       </li>

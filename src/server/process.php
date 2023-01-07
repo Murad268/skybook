@@ -203,7 +203,19 @@
       $addComment = $dbh->prepare("INSERT INTO comments (post_id, comment, user_id) VALUES (?,?,?)");
       $addComment->execute([minseo($_POST["post_id"]), minseo($_POST["comment"]),$user_id]);
       $addedCommentCount = $addComment->rowCount();
+  
+  
       if($addedCommentCount>0) {
+         $search_post = $dbh->prepare("SELECT * FROM posts WHERE id = ?");
+         $search_post->execute([$_POST["post_id"]]);
+         $post = $search_post->fetch(PDO::FETCH_ASSOC);
+         if($post["user_id"] != $user_id) {
+            $notComment = $dbh->prepare("INSERT INTO notification (type, to_id, from_id, comment, comment_id) VALUES (?,?,?,?,?)");
+            $notComment->execute([1, $post["user_id"], $user_id, minseo($_POST["comment"]), $_POST["post_id"]]);
+            if($notComment->rowCount()>0) {
+               header('Location: ' . $_SERVER['HTTP_REFERER']);
+            }
+         }
          header('Location: ' . $_SERVER['HTTP_REFERER']);
       }
    }

@@ -45,6 +45,8 @@
                require('./src/pages/mess.php');
             } elseif($_REQUEST["page"]=="messagespage") {
                require('./src/pages/messagessPage.php');
+            } elseif($_REQUEST["page"]=="notifications") {
+               require('./src/pages/notifications.php');
             }
           
          } else {
