@@ -24,7 +24,7 @@
                   <div class="search__main__user__img">
                      <img src="assets/users/image.png" alt="">
                   </div>
-                  <div class="search__main__user__name"><?php echo $result["user_login"]?></div>
+                  <div class="search__main__user__name"><a href="index.php?page=userpage&user=<?php echo $result["id"]?>"><?php echo $result["user_login"]?></a></div>
                </div>
                <?php
                } else {?>
@@ -133,11 +133,11 @@
             ?>
          </div>
          <div class="search__main__elan">
-            <div class="div_user">Tapılan istafadəçilər</div>
+            <div class="div_user">Tapılan elanlar</div>
             <?php
                if($elanSayi==0) {?>
                    <div class="npResult">
-                     Heç bir istifadəçi tapılmadı
+                     Heç bir elanlar tapılmadı
                   </div>   
                <?php
                   
