@@ -11,7 +11,7 @@
                <div class="col-lg-4">
                <div class=" mb-4 avatar__img">
                      <?php
-                        if($fetchUser->rowCount() > 0) {?>
+                        if($user["avatar"]!=null) {?>
                         <img src="assets/users/<?php echo $user["avatar"]?>" alt="avatar"
                      class="" >
                         <?php
