@@ -131,10 +131,14 @@
          $searchUser->execute([$email, $pass, 1]);
          $countUsers = $searchUser->rowCount();
          if($countUsers > 0) {
-            unset ($_SESSION['user_reg']);
-            $_SESSION["email"] = $email;
-            header("Location: ../../index.php");
-            exit();
+            $activateUserActive = $dbh->prepare("UPDATE users SET active=? WHERE user_email=? AND status = ?");
+            $activateUserActive->execute([1, $email, 1]);
+            if($activateUserActive->rowCount() > 0) {
+               unset ($_SESSION['user_reg']);
+               $_SESSION["email"] = $email;
+               header("Location: ../../index.php");
+               exit();
+            }
          }
       } else {
          $_SESSION["user_reg"] = "Elekron poçt və ya şifrə yanlışdır";
@@ -525,7 +529,24 @@
             }
          } else {
             header('Location: ' . $_SERVER['HTTP_REFERER']);
+         }   
+      }
+
+      if(isset($_POST['add__status'])) {
+         $img = $_FILES["status"];   
+         if($img["size"] != 0) {
+         $imagetemp =  $img['tmp_name'];
+         $imagename = $img['name'];
+         $add_post = $dbh->prepare("INSERT INTO statuses (user_id, status) VALUES (?, ?)");
+         $rrr = createActivationCode();
+         $add_post->execute([$user_id, $rrr.$imagename]);
+            if(move_uploaded_file($imagetemp, '../../assets/images/statuses/' .$rrr.$imagename)) {
+               header('Location: ' . $_SERVER['HTTP_REFERER']);
+            } else {
+               echo "Failed to move your image.";
+            }
+         } else {
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
          }
-         
       }
 ?>

@@ -10,7 +10,11 @@
    } else {
       $sayfalamaKosulu = "";
    }
-  
+   $getFriends = $dbh->prepare("SELECT * FROM friends WHERE friend_first = ? OR friend_second = ?");
+   $getFriends->execute([$user_id, $user_id]);
+   $friends = $getFriends->fetchAll(PDO::FETCH_ASSOC);
+   
+
    $sayfalamaIcinButonSayisi = 2;
    $sayfaBasinaGosterilecek = 30;
    $toplamKayitSayisiSorgusu = $dbh->prepare("SELECT * FROM posts");
@@ -39,80 +43,7 @@
 ?>
 <div></div>
 <section class="main">	
-   <div class="main__wrapper">
-      <div class="main__statuses">
-         <div class="main__status">
-            <img draggable=false src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5Unu6nHYatqAloTpYHZ9lEJkLW8xj-nzQxZ7hvOcOEUosivjh_IfBOZz80AwgcZpHTU&usqp=CAU" alt="">
-            <div class="add_story">
-               <i class="fa-solid fa-plus"></i>
-            </div>
-            <div class="main__status__name">
-               Hekayə əlavə et
-            </div>
-         </div>
-         <div class="main__status">
-            <img draggable=false src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5Unu6nHYatqAloTpYHZ9lEJkLW8xj-nzQxZ7hvOcOEUosivjh_IfBOZz80AwgcZpHTU&usqp=CAU" alt="">
-            <div class="main__status__icon">
-               <img src="assets/users/image.png" alt="">
-            </div>
-            <div class="main__status__name">
-               Murad Agamedov
-            </div>
-         </div>
-         <div class="main__status">
-            <img draggable=false src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5Unu6nHYatqAloTpYHZ9lEJkLW8xj-nzQxZ7hvOcOEUosivjh_IfBOZz80AwgcZpHTU&usqp=CAU" alt="">
-            <div class="main__status__icon">
-               <img src="assets/users/image.png" alt="">
-            </div>
-            <div class="main__status__name">
-               Murad Agamedov
-            </div>
-         </div>
-         <div class="main__status">
-            <img draggable=false src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5Unu6nHYatqAloTpYHZ9lEJkLW8xj-nzQxZ7hvOcOEUosivjh_IfBOZz80AwgcZpHTU&usqp=CAU" alt="">
-            <div class="main__status__icon">
-               <img src="assets/users/image.png" alt="">
-            </div>
-            <div class="main__status__name">
-               Murad Agamedov
-            </div>
-         </div>
-         <div class="main__status">
-            <img draggable=false src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5Unu6nHYatqAloTpYHZ9lEJkLW8xj-nzQxZ7hvOcOEUosivjh_IfBOZz80AwgcZpHTU&usqp=CAU" alt="">
-            <div class="main__status__icon">
-               <img src="assets/users/image.png" alt="">
-            </div>
-            <div class="main__status__name">
-               Murad Agamedov
-            </div>
-         </div>
-         <div class="main__status">
-            <img draggable=false src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5Unu6nHYatqAloTpYHZ9lEJkLW8xj-nzQxZ7hvOcOEUosivjh_IfBOZz80AwgcZpHTU&usqp=CAU" alt="">
-            <div class="main__status__icon">
-               <img src="assets/users/image.png" alt="">
-            </div>
-            <div class="main__status__name">
-               Murad Agamedov
-            </div>
-         </div>
-         <div class="main__status">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU5Unu6nHYatqAloTpYHZ9lEJkLW8xj-nzQxZ7hvOcOEUosivjh_IfBOZz80AwgcZpHTU&usqp=CAU" alt="">
-            <div class="main__status__icon">
-               <img src="assets/users/image.png" alt="">
-            </div>
-            <div class="main__status__name">
-               Murad Agamedov
-            </div>
-         </div>
-         <div style="background-color: white;" class="main__status">
-            <div class="main__status__more">
-               <i style="font-size: 50px; cursor:pointer" class="fa fa-sign-out" aria-hidden="true"></i>
-            </div>
-         </div>
-      </div>
-      <div class="left"><i class="fa-solid fa-arrow-left"></i></div>
-      <div class="right"><i class="fa-solid fa-arrow-right"></i></div>
-   </div>
+
    <main class="contentMain">
       <div class="filter__posts">
          <a href="" class="friends btn btn-success">Dostlarımın postları</a>
@@ -259,7 +190,17 @@
 </nav>
 </section>
 
-
+<div class="add__status__modal">
+   <div class="add__status__modal__block">
+      <div class="add__status__modal__exit">
+            <i class="fa fa-window-close" aria-hidden="true"></i>
+         </div>
+      <form enctype="multipart/form-data" method="post" action="./src/server/process.php">
+         <input type="file" name="status" class="form-control">
+         <button name="add__status" class="btn btn-success">Statusu əlavə et</button>
+      </form>
+   </div>
+</div>
 
 <div class="add_image__modal">
    <div class="add_image__modal__box">
@@ -284,58 +225,13 @@
 </div>
 
 <script>
-      const statuses = () => {
-      const main = document.querySelector(".main__statuses");
-      const mainStatus = document.querySelectorAll(".main__status")
-      const margin = window.getComputedStyle(document.querySelector(".main__status")).marginRight;
-      const main__statusWidth = document.querySelector(".main__status").clientWidth;
-      const butttonLeft = document.querySelector(".left");
-      const butttonRight = document.querySelector(".right");
-      const mainWidth = +mainStatus.length*(parseFloat(margin)+main__statusWidth);
-
-      let offset = 0;
-
-      function righting() {
-         if(offset!==(mainWidth-(parseFloat(margin)+main__statusWidth))) {
-            offset+=+main__statusWidth + parseFloat(margin)
-         } else {
-            offset=0
-         }
-   
-         main.style.transform =`translateX(-${offset}px)`
-      }
-      function lefting() {
-         if(offset!==0) {
-            offset-=main__statusWidth+parseFloat(margin)
-         
-         } else {
-            offset=(mainWidth-(parseFloat(margin)+main__statusWidth))
-         }
-
-         main.style.transform =`translateX(-${offset}px)`
-      }
-
-      main.addEventListener("swiped-right", () => {
-         righting()
-      })
-      main.addEventListener("swiped-left", () => {
-         lefting()
-      })
-      butttonRight.addEventListener("click", () => {
-         righting()
-      })
-      butttonLeft.addEventListener("click", () => {
-         lefting()
-      })
-   }
-   statuses()
+     
 
    function activationModal(openSelector, addImageSelector, addPostSelector, activeClass) {
    const btn = document.querySelector(openSelector),
          modal = document.querySelector(addImageSelector);
          close = document.querySelector(addPostSelector);
    btn.addEventListener("click", () => {
-   
       modal.classList.add(activeClass);
    })
    close.addEventListener("click", () => {
@@ -344,4 +240,8 @@
 }
 
    activationModal(".openAddPostModal", ".add_image__modal", ".addPostModalExit", "add_image__modal__active");
+
+
+
+
 </script>
