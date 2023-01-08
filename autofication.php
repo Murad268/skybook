@@ -17,11 +17,7 @@
 	<div class="form-container sign-up-container">
 		<form method="post" action="./src/server/process.php">
 			<h1>Qeydiyyat</h1>
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
+		
 			<span>və ya qeydiyyat üçün e-poçtunuzdan istifadə edin</span>
 			<input name="user_login" type="text" placeholder="Login" />
 			<input name="user_email" type="email" placeholder="Elektron poçt" />
@@ -32,11 +28,7 @@
 	<div class="form-container sign-in-container">
 		<form method="post" action="./src/server/process.php">
 			<h1>Daxil olmaq</h1>
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
+		
 			<span>ya da öz hesabın ilə daxil ol</span>
 			<input name="user_email" type="email" placeholder="Elektron poçt" />
 			<input name="user_pass" type="password" placeholder="Şifrə" />
