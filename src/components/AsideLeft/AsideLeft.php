@@ -20,32 +20,36 @@
          </div>
       </div>
      <?php
-         foreach($randomFriends as $friend) {
-            if($friend["id"] != $user_id){?>
-             <div class="asideLeft__user__messaggess__body">
-               <div class="asideLeft__user__messaggess__body__messagge">
-                  <div style="background-color: <?php echo $friend["active"] == 1 ? 'green':'silver'?>;" class="asideLeft__user__messaggess__body__messagge__icon">
-                     <?php
-                        if($friend["avatar"] == null) {?>
-                           <img src="assets/users/image.png" alt="">
+         if($randomMess->rowCount()>0) {
+            foreach($randomFriends as $friend) {
+               if($friend["id"] != $user_id){?>
+               <div class="asideLeft__user__messaggess__body">
+                  <div class="asideLeft__user__messaggess__body__messagge">
+                     <div style="background-color: <?php echo $friend["active"] == 1 ? 'green':'silver'?>;" class="asideLeft__user__messaggess__body__messagge__icon">
                         <?php
-                        } else {?>
-                           <img src="assets/users/<?php echo $friend["avatar"]?>" alt="">
-                        <?php
-                        }
-                     ?>
-                  </div>
-                  <div class="asideLeft__user__messaggess__body__messagge__name">
-                     <a href="index.php?page=userpage&user=<?php echo $friend["id"]?>"> <?php
-                        echo donusumleriGeriDondur($friend["user_login"])
-                     ?></a>
-                    
+                           if($friend["avatar"] == null) {?>
+                              <img src="assets/users/image.png" alt="">
+                           <?php
+                           } else {?>
+                              <img src="assets/users/<?php echo $friend["avatar"]?>" alt="">
+                           <?php
+                           }
+                        ?>
+                     </div>
+                     <div class="asideLeft__user__messaggess__body__messagge__name">
+                        <a href="index.php?page=userpage&user=<?php echo $friend["id"]?>"> <?php
+                           echo donusumleriGeriDondur($friend["user_login"])
+                        ?></a>
+                     
+                     </div>
                   </div>
                </div>
-            </div>
-         <?php
+            <?php
+            }
          }
-      }
+        } else {
+         echo "Dostlarn tapılmasında problem yarandı";
+        }
      ?>
    </div>
 </aside>
